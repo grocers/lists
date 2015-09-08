@@ -1,0 +1,37 @@
+.index-wrapper {
+  background-color: #72cd5f;
+  background-color: #61c1b8;
+  color: #fff;
+  text-align: center;
+  height: 100vh;
+  padding: 6em;
+  .row {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .service-explanation {
+    .headline {
+      font-size: 40px;
+      margin-bottom: 5px;
+      margin-top: 20px;
+    }
+    .sub {
+      font-size: 18px;
+      -webkit-font-smoothing: antialiased;
+    }
+  }
+  .links {
+    margin-top: 3em;
+    .btn {
+      @include border-radius(8px);
+      background-color: transparent;
+      border-color: #fff;
+      border-width: 2px;
+      padding: 7px 16px;
+    }
+    .btn:hover {
+      @include color-button(#fff);
+      color: #61c1b8;
+    }
+  }
+}

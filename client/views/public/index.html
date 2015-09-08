@@ -1,4 +1,17 @@
 <template name="index">
-  <div class="row">
+  <div class="index-wrapper">
+    <div class="row">
+      <div class="intro-image">
+        <img src="/images/shopping-basket.png" width="250">
+      </div>
+      <div class="service-explanation">
+        <p class="lead headline">Create your shopping list.</p>
+        <p class="lead sub">We'll <em>shop</em> and <em>deliver</em> to your doorstep.</p>
+      </div>
+      <div class="links">
+        <a href="{{pathFor 'signup'}}" class="btn btn-success btn-lg">Try It</a>&nbsp; 
+        <a href="{{pathFor 'login'}}" class="btn btn-success btn-lg">Open My Lists</a> 
+      </div>
+    </div>
   </div>
 </template>
