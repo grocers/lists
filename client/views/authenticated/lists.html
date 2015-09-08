@@ -1,0 +1,27 @@
+<template name="lists">
+  <div class="row">
+    <div class="col-lg-2 sidebar">
+      <a href="" class="btn btn-danger create-list btn-lg"><i class="fa fa-plus"></i> Create List</a>
+    </div>
+    <div class="col-lg-10 lists">
+      <div class="row">
+        {{#if Template.subscriptionsReady}}
+          {{#if hasLists}}
+            {{#each lists}}
+              <div class="col-lg-4 list">
+                <div class="box">
+                  <h2 class="name">{{name}}</h2>
+                  <a href="" class="btn btn-default btn-lg open-link"><i class="fa fa-folder-open-o"></i> Open List</a>
+                </div>
+              </div>
+            {{/each}}
+          {{else}}
+            <p class="lead text-muted" style="margin-top: 7px;">Let's create your first list!</p>
+          {{/if}}
+        {{else}}
+        <p class="lead text-muted" style="margin-top: 7px; color: #f00;">Loading ...</p>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</template>
