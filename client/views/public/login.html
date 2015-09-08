@@ -1,8 +1,8 @@
 <template name="login">
-  <div class="merchant-login-form-wrapper">
+  <div class="login-form-wrapper">
     <div class="row form-heading">
       <div class="col-lg-12">
-        <p class="lead">Hello again!</p>
+        <p class="lead">Welcome Back!</p>
       </div>
     </div>
     <div class="row login-form">
@@ -10,23 +10,24 @@
         <form class="form">
           <div class="form-group">
             <label for="email">Email Address</label>
-            <input type="email" class="form-control" id="email" placeholder="your email address" disabled="{{accountCreationInProgress}}">
+            <input type="email" class="form-control" id="email" disabled="{{isLoggingIn}}">
           </div>
           <div class="form-group">
             <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" placeholder="your password" disabled="{{accountCreationInProgress}}">
+            <input type="password" class="form-control" id="password" disabled="{{isLoggingIn}}">
           </div>
 
-          <button type="submit" class="btn btn-warning login" disabled="{{accountCreationInProgress}}">
-            {{#if accountCreationInProgress}}
+          <button type="submit" class="btn btn-warning login" disabled="{{isLoggingIn}}">
+            {{#if isLoggingIn}}
             <i class="fa fa-gear fa-spin"></i> One moment please...
             {{else}}
-              Log Into My Account
+              Go to My Account
             {{/if}}
           </button>
+          <a href="{{pathFor 'index'}}" class="btn btn-success btn-lg back-to-homepage">Back</a>
         </form>   
         <span id="help-links" class="help-block help-links">
-          <a href="{{pathFor 'merchantSignup'}}">Create Account</a> &middot; <a href="">Recover Password</a>
+          Not a member? <a href="{{pathFor 'signup'}}">Signup</a>
         </span>
       </div>
     </div>

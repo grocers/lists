@@ -1,15 +1,17 @@
-.merchant-login-form-wrapper {
-  width: 30%;
+.login-form-wrapper {
+  padding: 3em;
+  width: 37%;
   margin: 0 auto;
   .form-heading {
     .lead {
       font-weight: bold;
-      color: #F38D1E;
+      color: #61c1b8;
       -webkit-font-smoothing: antialiased;
+      text-align: center;
     }
   }
   .login-form form {
-    border: 1px solid #F38D1E;
+    border: 1px solid #61c1b8;
     border-left-color: #ddd;
     border-right-color: #ddd;
     border-bottom-color: #ddd;
@@ -28,25 +30,34 @@
     }
     input:focus {
       /* border-color: #F38D1E; */
-      border-color: #F5A44B;
+      border-color: #61c1b8;
     }
     .login {
       min-height: 45px;
       font-size: 16px;
-      @include color-button(#F38D1E);
+      @include color-button(#61c1b8);
       padding-left: 15px;
       padding-right: 15px;
     }
     .login:hover {
-      opacity: 0.8;
+      opacity: 0.9;
     }
     .login:focus {
       outline: 0;
     }
+    .back-to-homepage {
+      @include color-button(#72cd5f);
+      color: #fff;
+    }
+    .back-to-homepage:hover {
+      opacity: 0.9;
+    }
   }
   .login-form .help-links {
     margin-top: 20px;
+    text-align: center;
     color: #bbb;
+    font-size: 17px;
     a:link, a:visited {
       color: #bbb;
     }
