@@ -4,6 +4,6 @@ Accounts.onLogin(function () {
   if (redirectTo && redirectTo !== 'login') {
     return FlowRouter.go(redirectTo);
   } else {
-    return FlowRouter.go('dashboardHome');
+    return FlowRouter.go('lists');
   }
 });
