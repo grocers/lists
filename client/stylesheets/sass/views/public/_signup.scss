@@ -1,0 +1,54 @@
+.merchant-signup-form-wrapper {
+  width: 30%;
+  margin: 0 auto;
+  .form-heading {
+    .lead {
+      font-weight: bold;
+      color: #F38D1E;
+      -webkit-font-smoothing: antialiased;
+    }
+  }
+  .signup-form form {
+    border: 1px solid #F38D1E;
+    border-left-color: #ddd;
+    border-right-color: #ddd;
+    border-bottom-color: #ddd;
+    border-radius: 5px;
+    border-top-width: 6px;
+    padding: 35px 35px 40px 35px;
+    text-align: left;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+    label {
+      text-transform: uppercase;
+      font-size: 11px;
+    }
+    input {
+      box-shadow: none;
+      min-height: 45px;
+    }
+    input:focus {
+      /* border-color: #F38D1E; */
+      border-color: #F5A44B;
+    }
+    .create-account {
+      min-height: 45px;
+      font-size: 16px;
+      @include color-button(#F38D1E);
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+    .create-account:hover {
+      opacity: 0.8;
+    }
+    .create-account:focus {
+      outline: 0;
+    }
+  }
+  .signup-form .help-links {
+    margin-top: 20px;
+    color: #bbb;
+    a:link, a:visited {
+      color: #bbb;
+    }
+  }
+}
