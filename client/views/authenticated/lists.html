@@ -1,7 +1,7 @@
 <template name="lists">
   <div class="row">
     <div class="col-lg-2 sidebar">
-      <a href="" class="btn btn-danger create-list btn-lg"><i class="fa fa-plus"></i> Create List</a>
+      <a href="{{pathFor 'createList'}}" class="btn btn-danger create-list btn-lg"><i class="fa fa-plus"></i> New List</a>
     </div>
     <div class="col-lg-10 lists">
       <div class="row">
@@ -19,7 +19,7 @@
             <p class="lead text-muted" style="margin-top: 7px;">Let's create your first list!</p>
           {{/if}}
         {{else}}
-        <p class="lead text-muted" style="margin-top: 7px; color: #f00;">Loading ...</p>
+        <p class="lead text-muted" style="margin-top: 7px;">Loading ...</p>
         {{/if}}
       </div>
     </div>
