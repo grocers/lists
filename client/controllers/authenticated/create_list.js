@@ -53,7 +53,11 @@ Template.createList.events({
         Session.set('updatingListName', false);
         if (error) {
           console.log('Error:', error);
-          return sAlert.error('We had trouble saving your changes');
+          sAlert.error(error.reason || 'Oops. We had trouble processing your last request.');
+          /*if (error.error === 'duplicate-name') {
+            $(event.target).val('');
+          }*/
+          return;
         } else {
           console.log('update success...');
         }
@@ -65,7 +69,9 @@ Template.createList.events({
         Session.set('updatingListName', false);
         if (error) {
           console.log('Error:', error);
-          return sAlert.error("Sorry we couldn't create your list");
+          sAlert.error(error.reason || 'Oops. We had trouble processing your last request.');
+          // $(event.target).val('');
+          return;
         } else {
           Session.set('listId', listId);
         }
@@ -95,7 +101,7 @@ Template.createList.events({
         Session.set('addingItemToList', false);
         if (error) {
           console.log('Error:', error);
-          sAlert('Sorry. We had trouble saving your item');
+          sAlert.error(error.reason || 'Oops. We had trouble processing your last request.');
         } else {
           var form = $(event.target).parents('.form')[0];
           $(form).trigger('reset');

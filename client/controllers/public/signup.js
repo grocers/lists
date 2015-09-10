@@ -43,7 +43,7 @@ Template.signup.events({
           if (error.error === 403) {
             sAlert.error("Sorry, a user with that email address already exists.");
           } else {
-            sAlert.error('We had trouble processing your request.');
+            sAlert.error(error.reason || 'Oops. We had trouble processing your last request.');
           }
         } else {
           // Log the user in.
