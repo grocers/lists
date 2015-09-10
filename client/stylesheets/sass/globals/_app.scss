@@ -1,9 +1,11 @@
 .app-container {
   .navigation {
     .navbar-brand {
+      color: #ebebeb;
       img {
         position: relative;
         bottom: 1px;
+        display: inline;
       } 
     }
     .links {
