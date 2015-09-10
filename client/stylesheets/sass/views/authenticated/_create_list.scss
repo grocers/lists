@@ -1,0 +1,95 @@
+.app-container {
+  .body {
+    .sidebar {
+      .create-list {
+        @include color-button(#9dc626);
+        font-size: 17px;
+      }
+    }
+    .new-list-form-area {
+      .form-box {
+        border: 1px solid #dfdfdf;
+        border-top: 5px solid #61c1b8;
+        @include border-radius(5px);
+        padding-left: 0;
+        padding-right: 0;
+        .header {
+          padding: 25px 25px;
+          border-bottom: 1px solid #eee;
+          #list-name {
+            font-size: 30px;
+            font-weight: bold;
+            border: none;
+          }
+          #list-name:focus {
+            outline: none;
+          }
+          .saving-spinner-box {
+            text-align: right;
+            .saving-spinner {
+              position: relative;
+              top: 5px;
+            }
+            .done-save {
+              color: #61c1b8;
+              position: relative;
+              top: 5px;
+            }
+          }
+          .show-items-list-add-btn {
+            @include color-button(#61c1b8);
+            margin-top: 10px;
+          }
+          .show-items-list-add-btn:hover {
+            opacity: 0.9;
+          }
+        }
+        .no-items {
+          padding: 25px 25px;
+          .lead {
+            color: #a4a4a4;
+          }
+          .show-add-item-form-trigger {
+            @include color-button(#61c1b8);
+          }
+          .add-item:hover {
+            opacity: 0.9;
+          }
+        }
+        .items {
+          table th {
+            padding: 15px 25px;
+            font-size: 19px;
+            color: #61c1b8;
+            border-bottom: none;
+          }
+          table td {
+            padding: 15px 25px;
+            font-size: 19px;
+            border-top-color: #eee;
+          }
+        }
+        .add-item-form {
+          padding: 35px 25px 25px 25px;
+          .form-control {
+            height: 60px;
+            box-shadow: none;
+            font-size: 19px;
+            @include border-radius(4px);
+            border-color: #eee;
+          }
+          .form-control:focus {
+            border-color: #61c1b8;
+          }
+          .add-item-btn {
+            @include color-button(#61c1b8);
+          }
+          .cancel-add-item {
+            @include color-button(#a9a9a9);
+            color: #fff;
+          }
+        }
+      }
+    }
+  }
+}
