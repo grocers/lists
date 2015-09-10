@@ -14,6 +14,10 @@ Meteor.methods({
       throw new Meteor.Error(e.message);
     }
 
+    var exists = Lists.findOne({name: new RegExp(list.name, 'i'), owner: Meteor.userId()});
+    if (exists && exists.owner === Meteor.userId()) {
+      throw new Meteor.Error('duplicate-name', 'You already have a list with that name.');
+    }
 
     list.owner = Meteor.userId();
     return Lists.insert(list);
@@ -39,6 +43,11 @@ Meteor.methods({
 
     if (target.owner !== Meteor.userId()) {
       throw new Meteor.Error('not-allowed');
+    }
+
+    var exists = Lists.findOne({name: new RegExp(list.name, 'i'), owner: Meteor.userId()});
+    if (exists && exists.owner === Meteor.userId()) {
+      throw new Meteor.Error('duplicate-name', 'You already have a list with that name.');
     }
 
     Lists.update({_id: target._id}, {$set: {name: list.name}});
