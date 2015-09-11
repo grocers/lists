@@ -1,0 +1,42 @@
+.app-container {
+  .edit-item-link {
+    color: #61c1b8;
+  }
+  .remove-item-link {
+    color: #e25251;
+  }
+  .quantity-cell {
+    width: 10%;
+  }
+  .save-changes-link,
+  .cancel-edit-link {
+    position: relative;
+    top: 2px;
+  }
+  .save-changes-link {
+    color: #61c1b8;
+  }
+  .cancel-edit-link {
+    color: #e25251;
+  }
+  .saving-changes-to-item-spinner {
+    position: relative;
+    top: 4px;
+    color: #61c1b8;
+  }
+  #new-item-description,
+  #new-item-quantity {
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    height: 34px;
+  }
+  #item-quantity-unit {
+    box-shadow: none;
+  }
+  #new-item-description[disabled="true"],
+  #new-item-quantity[disabled="true"] {
+    background-color: #eee;
+    border: 1px solid #ccc;
+    height: 34px;
+  }
+}
