@@ -1,0 +1,10 @@
+<template name="itemPackingUnitOptions">
+  <select class="form-control" name="item-quantity-unit" id="item-quantity-unit" disabled="{{isSavingChangesToItem _id}}">
+    <option value="">Choose unit</option>
+    {{#each packingUnits}}
+    <!-- '../packingUnit' in the line below, reaches up to the parent template, which will be the template listing the list items
+    and fetches packingUnit from there -->
+    <option value="{{value}}" selected="{{#if shouldSelect value ../packingUnit}}selected{{/if}}">{{value}}</option>
+    {{/each}}
+  </select>
+</template>
