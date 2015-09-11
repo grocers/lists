@@ -11,7 +11,7 @@
               <div class="col-lg-4 list">
                 <div class="box">
                   <h2 class="name">{{name}}</h2>
-                  <a href="" class="btn btn-default btn-lg open-link"><i class="fa fa-folder-open-o"></i> Open List</a>
+                  <a href="{{pathFor 'viewList' id=_id}}" class="btn btn-default btn-lg open-link"><i class="fa fa-folder-open-o"></i> Open List</a>
                 </div>
               </div>
             {{/each}}
