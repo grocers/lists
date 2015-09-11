@@ -1,3 +1,10 @@
+Template.login.onCreated(function () {
+  var redirectTo = Session.get('redirectAfterLogin');
+  if (!redirectTo) {
+    Session.set('redirectAfterLogin', 'lists');
+  }
+});
+
 Template.login.helpers({
   logInInProgress: function () {
     return Session.get('logInInProgress');
@@ -38,6 +45,7 @@ Template.login.events({
           Session.set('logInInProgress', false);
           sAlert.success('Awesome! You are now logged in.');
           resetForm();
+          Session.set('redirectAfterLogin', 'lists');
         }
       });
     }
