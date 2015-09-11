@@ -20,6 +20,10 @@ Meteor.publish('aList', function(listId){
   }
 
   var data = Lists.find({_id: listId});
+  if (data.owner !== user) {
+    console.log('throwing error');
+    throw new Meteor.Error('not-authorized', 'You cannot view another user\'s lists');
+  }
 
   return data;
 });

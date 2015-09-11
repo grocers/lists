@@ -2,9 +2,18 @@ Template.viewList.onCreated(function() {
   var self = this;
   self.autorun(function() {
     var listId = FlowRouter.getParam("id");
-    self.subscribe('packingUnits');
-    self.subscribe('aList', listId);
-    self.subscribe('listItems', listId);
+    self.subscribe('aList', listId, {
+      onError: function (error) {
+        if (error) {
+          console.log('Error:', error);
+          sAlert.error(error.reason || 'We could not process your last request.');
+          FlowRouter.go('lists');
+        } else {
+          self.subscribe('packingUnits');
+          self.subscribe('listItems', listId);
+        }
+      }
+    });
   });
 });
 
