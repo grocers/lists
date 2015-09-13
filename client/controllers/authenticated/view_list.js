@@ -4,14 +4,13 @@ Template.viewList.onCreated(function() {
     var listId = FlowRouter.getParam("id");
     self.subscribe('aList', listId, {
       onError: function (error) {
-        if (error) {
-          console.log('Error:', error);
-          sAlert.error(error.reason || 'We could not process your last request.');
-          FlowRouter.go('lists');
-        } else {
-          self.subscribe('packingUnits');
-          self.subscribe('listItems', listId);
-        }
+        console.log('Error:', error);
+        sAlert.error(error.reason || 'We could not process your last request.');
+        FlowRouter.go('lists');
+      },
+      onReady: function () {
+        self.subscribe('packingUnits');
+        self.subscribe('listItems', listId);
       }
     });
   });
