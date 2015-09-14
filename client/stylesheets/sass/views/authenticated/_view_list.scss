@@ -1,4 +1,12 @@
 .app-container {
+  .body {
+    .sidebar {
+      .delete-list {
+        @include color-button(#e25251);
+        font-size: 17px;
+      }
+    }
+  }
   .edit-item-link {
     color: #61c1b8;
   }
