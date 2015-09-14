@@ -4,34 +4,40 @@
   color: #fff;
   text-align: center;
   height: 100vh;
-  padding: 6em;
+  padding: 4em;
   .row {
     margin-left: 0;
     margin-right: 0;
   }
+  .brand {
+    margin-top: 30px;
+  }
   .service-explanation {
     .headline {
-      font-size: 40px;
+      font-size: 30px;
       margin-bottom: 5px;
-      margin-top: 20px;
+      margin-top: 40px;
+      text-transform: uppercase;
     }
     .sub {
       font-size: 18px;
+      font-style: italic;
       -webkit-font-smoothing: antialiased;
     }
   }
   .links {
-    margin-top: 3em;
+    margin-top: 2em;
     .btn {
       @include border-radius(8px);
-      background-color: transparent;
-      border-color: #fff;
       border-width: 2px;
       padding: 7px 16px;
-    }
-    .btn:hover {
       @include color-button(#fff);
       color: #61c1b8;
+    }
+    .btn:hover {
+      background-color: transparent;
+      border-color: #fff;
+      color: #fff;
     }
   }
 }
