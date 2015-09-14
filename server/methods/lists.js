@@ -52,5 +52,27 @@ Meteor.methods({
 
     Lists.update({_id: target._id}, {$set: {name: list.name}});
     return;
+  },
+  deleteList: function (listId) {
+    if (!Meteor.userId()) {
+      throw new Meteor.Error('not-authorized');
+    }
+
+    try {
+      check(listId, String);
+    } catch (e) {
+      throw new Meteor.Error(e.message);
+    }
+
+    var list = Lists.findOne(listId);
+    if (!list) {
+      throw new Meteor.Error('not-found');
+    }
+
+    if (list.owner !== Meteor.userId()) {
+      throw new Meteor.Error('not-authorized');
+    }
+
+    return Lists.remove({_id: listId});
   }
 });

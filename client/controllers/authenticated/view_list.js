@@ -43,6 +43,9 @@ Template.viewList.helpers({
   },
   isSavingChangesToItem: function (itemId) {
     return Session.get('savingChangesToItem-' + itemId);
+  },
+  deletingList: function () {
+    return Session.get('deletingList');
   }
 });
 
@@ -154,5 +157,26 @@ Template.viewList.events({
   },
   "change #new-item-description, change #new-item-quantity, change #item-quantity-unit": function (event) {
     Session.set('item-' + this._id + '-edited', true);
+  },
+  "click .delete-list": function (event) {
+    event.preventDefault();
+    var deletionInProgress = Session.get('deletingList');
+    if (!deletionInProgress) {
+      if (confirm('This action will permanently delete this list and of its contents. Do you want to proceed?')) {
+        Session.set('deletingList', true);
+        var listId = FlowRouter.getParam("id");
+        Meteor.call('deleteList', listId, function (error) {
+          Session.set('deletingList', false);
+          if (error) {
+            console.log('Error:', error);
+            sAlert.error(error.reason || 'Oops. We had trouble processing your last request.');
+            return;
+          } else {
+            sAlert.success('List was deleted successfully.');
+            FlowRouter.go('lists');
+          }
+        });
+      }
+    }
   }
 });
