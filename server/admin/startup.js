@@ -9,4 +9,7 @@ Meteor.startup(function(){
   // Create item packing units if not exist
   createItemPackingUnits();
 
+  // Create admin user if not exist
+  createAdmin(); 
+
 });
