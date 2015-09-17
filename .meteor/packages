@@ -24,3 +24,5 @@ npm-container
 accounts-base
 accounts-password
 arillo:flow-router-helpers
+zimme:active-route
+aldeed:tabular
