@@ -14,14 +14,18 @@ Meteor.publish('currentUserLists', function(){
 });
 
 Meteor.publish('aList', function(listId){
-  var user = this.userId;
+  var userId = this.userId;
+  if (!userId) {
+    return null;
+  }
+
+  var user = Meteor.users.findOne(userId);
   if (!user) {
     return null;
   }
 
   var list = Lists.findOne({_id: listId});
-  if (list.owner !== user) {
-    console.log(list.owner, user);
+  if (list.owner !== userId && !user.profile.isAdmin) {
     throw new Meteor.Error('not-authorized', 'You cannot view another user\'s lists');
   }
 
