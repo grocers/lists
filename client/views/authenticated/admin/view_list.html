@@ -1,0 +1,119 @@
+<template name="adminShopperDetailsViewList">
+  <div class="row admin-view-list">
+    <div class="col-lg-12 new-list-form-area">
+      <div class="row">
+        {{#if Template.subscriptionsReady}}
+        <div class="col-lg-12 form-box">
+          <div class="header">
+            <div class="row">
+              <div class="col-lg-9">
+                <input class="" size="40" placeholder="Your List Name..." value="{{list.name}}" type="text" name="list-name" id="list-name" />
+              </div>
+              <div class="col-lg-3 saving-spinner-box">
+                  {{#if showHeaderSpinner}}
+                    <i class="fa fa-refresh fa-spin fa-2x text-muted saving-spinner"></i>
+                  {{else}}
+                  <i class="fa fa-check fa-2x text-muted done-save"></i>
+                  {{/if}}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-12">
+                <a href="{{pathFor 'adminShopperDetails' id=shopperId}}" class="btn btn-success back-to-shopper-details">
+                  <i class="fa fa-chevron-circle-left"></i> Back
+                </a>
+              </div>
+            </div>
+            {{#if hasItems}}
+            {{#if showAddItemForm}}
+            {{else}}
+            <!-- <div class="row"> -->
+            <!--   <div class="col-lg-12"> -->
+            <!--     <button class="btn btn-success show-items-list-add-btn show-add-item-form-trigger" type="button"> -->
+            <!--       <i class="fa fa-plus"></i> Add Item -->
+            <!--     </button> -->
+            <!--   </div> -->
+            <!-- </div> -->
+            {{/if}}
+            {{/if}}
+          </div>
+          {{#if hasItems}}
+            {{#if showAddItemForm}}
+            {{> addItemForm}}
+            {{/if}}
+          <div class="items">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <!-- <th>Edit</th> -->
+                  <th>Item Description</th>
+                  <th>Quantity</th>
+                  <th>Packing Unit</th>
+                  <!-- <th>&nbsp;</th> -->
+                </tr>
+              </thead>
+              <tbody>
+                {{#each listItems}}
+                  <tr>
+                    <!-- <td> -->
+                    <!--   {{#if isEditingItem _id}} -->
+                    <!--   {{#if isSavingChangesToItem _id}} -->
+                    <!--     <i class="fa fa-refresh fa-spin saving-changes-to-item-spinner"></i> -->
+                    <!--   {{else}} -->
+                    <!--     <a href="#" class="save-changes-link" title="Save Changes"><i class="fa fa-save"></i></a>&nbsp; -->
+                    <!--     <a href="#" class="cancel-edit-link" title="Cancel Edit"><i class="fa fa-times-circle"></i></a> -->
+                    <!--   {{/if}} -->
+                    <!--   {{else}} -->
+                    <!--     <a href="#" class="edit-item-link" title="Edit Item"><i class="fa fa-pencil"></i></a> -->
+                    <!--   {{/if}} -->
+                    <!-- </td> -->
+                    <td>
+                      {{#if isEditingItem _id}}
+                      <input type="text" value="{{description}}" name="new-item-description" id="new-item-description" disabled="{{isSavingChangesToItem _id}}" />
+                      {{else}}
+                        {{description}}
+                      {{/if}}
+                    </td>
+                    <td>
+                      {{#if isEditingItem _id}}
+                      <input type="number" value="{{quantity}}" min="1" max="100" name="new-item-quantity" id="new-item-quantity" disabled="{{isSavingChangesToItem _id}}" />
+                      {{else}}
+                        {{quantity}}
+                      {{/if}}
+                    </td>
+                    <td>
+                      {{#if isEditingItem _id}}
+                      {{> itemPackingUnitOptions}}
+                      {{else}}
+                      {{packingUnit}}
+                      {{/if}}
+                    </td>
+                    <!-- <td> -->
+                    <!--   {{#if isEditingItem _id}} -->
+                    <!--   {{else}} -->
+                    <!--   <a href="#" class="remove-item-link" title="Remove Item"><i class="fa fa-trash"></i></a> -->
+                    <!--   {{/if}} -->
+                    <!-- </td> -->
+                  </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
+          {{else}}
+            {{#if showAddItemForm}}
+            {{> addItemForm}}
+            {{else}}
+              <div class="no-items">
+                <p class="lead text-muted">No items here yet.</p>
+                <!-- <button type="button" class="btn btn-success btn-lg show-add-item-form-trigger"><i class="fa fa-plus"></i> Add Item</button> -->
+              </div>
+            {{/if}}
+          {{/if}}
+        </div>
+        {{else}}
+          <p class="lead">Loadin...</p>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</template>
