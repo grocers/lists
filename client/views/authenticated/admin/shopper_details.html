@@ -1,0 +1,63 @@
+<template name="adminShopperDetails">
+  <div class="row shopper-details">
+    <div class="col-lg-12 header">
+      <p class="lead"><a href="{{pathFor 'adminShoppers'}}" class="back-to-shoppers-list"><i class="fa fa-chevron-circle-left"></i></a> Shopper Information</p>
+    </div>
+    <div class="col-lg-12 content"> 
+      {{#if Template.subscriptionsReady}}
+      <section class="personal">
+        <p class="lead section-name">Personal</p>
+        <table class="">
+          <tbody>
+            <tr>
+              <td>Full Name</td>
+              <td>{{shopper.profile.fullName}}</td>
+            </tr>
+            <tr>
+              <td>Telephone</td>
+              <td>{{shopper.profile.telephone}}</td>
+            </tr>
+            <tr>
+              <td>Email</td>
+              <td>{{shopperEmail}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="address">
+        <p class="lead section-name">Address</p>
+        <p class="lead text-muted">To be implemented</p>
+      </section>
+
+      <section class="lists">
+        <p class="lead section-name">Lists</p>
+        {{#if hasLists}}
+        <table class="table">
+          <thead>
+            <tr>
+              <th>List Name</th>
+              <th>Summary</th>
+              <th>&nbsp;</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each lists}}
+            <tr>
+              <td>{{name}}</td>
+              <td class="text-muted">{{itemsCount _id}}</td>
+              <td><a href="{{pathFor 'adminShopperDetailsViewList' id=shopper._id listid=_id}}"><i class="fa fa-folder-open open-list-icon"></i></a></td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+        {{else}}
+        <p class="lead text-muted">No lists created yet.</p>
+        {{/if}}
+      </section>
+      {{else}}
+      <p class="lead loading">Loading...</p>
+      {{/if}}
+		</div>
+  </div>
+</template>

@@ -27,3 +27,19 @@ Meteor.publish('aList', function(listId){
 
   return Lists.find({_id: listId});
 });
+
+Meteor.publish('shopperLists', function(shopperId) {
+  var user = this.userId;
+  if (!user) {
+    return [];
+  }
+
+  try {
+    check(shopperId, String);
+  } catch (e) {
+    return [];
+  } 
+
+  var data = Lists.find({"owner": shopperId});
+  return data;
+});
