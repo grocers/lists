@@ -12,8 +12,35 @@
       </div>
       <div id="navbar" class="collapse navbar-collapse navbar-right links">
         <ul class="nav navbar-nav">
+          {{#if isCustomer}}
+          <li class="dropdown help">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-question-circle"></i> <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li role="separator" class="divider"></li>
+              <li class="dropdown-header">Got questions? Have feedback?</li>
+              <li>
+                <form class="form feedback feedback-form">
+                  <div class="form-group">
+                    <textarea class="form-control" name="message" id="message" placeholder="We'd love to hear from you!" rows="5" cols="40" disabled="{{sendingFeedback}}"></textarea>
+                  </div>
+                  <button type="submit" class="btn btn-success" disabled="{{sendingFeedback}}">
+                    {{#if sendingFeedback}}
+                      One moment please...
+                    {{else}}
+                      Send Message
+                    {{/if}}
+                  </button>
+                </form>
+              </li>
+            </ul>
+          </li>
+          {{/if}}
           <li class="active dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hi {{username}} <span class="caret"></span></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+              {{#if Template.subscriptionsReady}}
+                Hi {{username}} 
+              {{/if}}
+              <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <!-- <li role="separator" class="divider"></li> -->
               <!-- <li class="dropdown-header">Nav header</li> -->
