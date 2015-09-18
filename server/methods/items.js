@@ -21,6 +21,7 @@ Meteor.methods({
       throw new Meteor.Error(e.message);
     }
 
+    item.createdAt = new Date();
     return Items.insert(item);
   },
   updateItem: function (item) {
@@ -54,7 +55,7 @@ Meteor.methods({
     }
 
     var itemId = item.id; delete item.id;
-    Items.update({_id: itemId}, {$set: item});
+    Items.update({_id: itemId}, {$set: item, updatedAt: new Date()});
 
     return;
   },

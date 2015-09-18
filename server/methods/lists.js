@@ -20,6 +20,7 @@ Meteor.methods({
     }
 
     list.owner = Meteor.userId();
+    list.createdAt = new Date();
     return Lists.insert(list);
   },
   updateList: function (list) {
@@ -50,7 +51,7 @@ Meteor.methods({
       throw new Meteor.Error('duplicate-name', 'You already have a list with that name.');
     }
 
-    Lists.update({_id: target._id}, {$set: {name: list.name}});
+    Lists.update({_id: target._id}, {$set: {name: list.name, updatedAt: new Date()}});
     return;
   },
   deleteList: function (listId) {
