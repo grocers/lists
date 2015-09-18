@@ -47,3 +47,30 @@ Meteor.publish('shopperLists', function(shopperId) {
   var data = Lists.find({"owner": shopperId});
   return data;
 });
+
+Meteor.publish('listsAddedThisWeek', function(){
+  console.log('++');
+  var userId = this.userId;
+  if (!userId) {
+    return [];
+  }
+
+  var user = Meteor.users.findOne(userId);
+  if (!user) {
+    return [];
+  }
+
+  if (!user.profile.isAdmin) {
+    return [];
+  }
+
+  var startOfWeek = moment().startOf('week');
+
+  var results = Lists.find({
+    createdAt: {
+      $gte: new Date(startOfWeek)
+    }
+  });
+  console.log('--', results.count());
+  return results;
+});
