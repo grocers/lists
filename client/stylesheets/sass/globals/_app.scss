@@ -8,6 +8,23 @@
         display: inline;
       } 
     }
+    .help {
+      .dropdown-menu {
+        min-width: 300px;
+      }
+      form.feedback {
+        padding: 15px;
+        button {
+          @include color-button(#61c1b8);
+        }
+        button:hover {
+          opacity: 0.9;
+        }
+        button:focus {
+          outline: 0;
+        }
+      }
+    }
     .links {
       li > a {
         padding-top: 22px;
