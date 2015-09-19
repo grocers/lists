@@ -1,0 +1,13 @@
+<template name="adminDashboardLayout">
+  <div class="row">
+		<div class="col-xs-3 menu" data-spy="affix" data-offset-top="40" data-offset-bottom="150">
+			<ul class="list-group">
+        <a href="{{pathFor 'adminOverview'}}" class="list-group-item {{#if isActive 'adminOverview'}}disabled{{/if}}"><p class="lead">Overview</p></a>
+        <a href="{{pathFor 'adminShoppers'}}" class="list-group-item {{#if isActive 'adminShoppers' 'adminShopperDetails'}}disabled{{/if}}"><p class="lead">Shoppers</p></a>
+			</ul>
+		</div>
+    <div class="col-lg-9 viewport">
+      {{> Template.dynamic template=dashboardContent}}
+    </div>
+  </div>
+</template>

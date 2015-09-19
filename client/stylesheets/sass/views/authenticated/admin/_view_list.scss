@@ -1,0 +1,15 @@
+.app-container {
+  .body {
+    .viewport {
+      .admin-view-list {
+        .back-to-shopper-details {
+          @include color-button(#61c1b8);
+          margin-top: 10px;
+        }
+        .back-to-shopper-details:hover {
+          opacity: 0.9;
+        }
+      }
+    }
+  }
+}

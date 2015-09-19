@@ -18,5 +18,53 @@
   .body {
     margin-top: 65px;
     padding-top: 40px;
+    .menu {
+      .list-group {
+        .list-group-item {
+          border: 1px solid #9EC437;
+          .lead {
+            margin: 0;
+            font-size: 18.5px;
+            color: #9EC437;
+          }
+        }
+        .disabled {
+          background-color: #9EC437;
+          color: #fff;
+          cursor: auto;
+          .lead {
+            color: #fff;
+          }
+        }
+        .disabled:focus {
+          outline: 0;
+        }
+      }
+    }
+    .menu.affix {
+      width: 23%;
+    }
+    // .menu.affix-bottom {
+    //   top: 0 !important;
+    // }
+    .viewport {
+      border: 1px solid #ddd;
+      @include border-radius(5px);
+      padding-top: 0em;
+      padding-bottom: 1em;
+      > .row .header {
+        padding-top: 10px;
+        padding-bottom: 7px;
+        border-bottom: 1px solid #ddd;
+        margin-bottom: 20px;
+        .lead {
+          margin-bottom: 0px;
+          color: #9EC437;
+        }
+      }
+    }
+    .viewport.floated {
+      float: right;
+    }
   }
 }

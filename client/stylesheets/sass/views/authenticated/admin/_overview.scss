@@ -1,0 +1,44 @@
+.app-container {
+  .body {
+    .viewport {
+      .dashboard-overview {
+        .header {
+          .lead {
+            // color: #666;
+          }
+        }
+        .content {
+          padding: 45px 40px 65px 40px;
+          .metric {
+            .box {
+              border: 1px solid #dfdfdf;
+              @include border-radius(3px);
+              .top {
+                border: 0px solid #f00;
+                text-align: center;
+                .value {
+                  line-height: 130px;
+                  margin-bottom: 0;
+                  font-weight: bold;
+                  font-size: 40px;
+                  // color: #9EC437;
+                }
+              }
+              .bottom {
+                background-color: #fafafa;
+                padding: 10px;
+                text-align: center;
+                border-top: 1px solid #dfdfdf;
+                .description {
+                  margin-bottom: 0;
+                  color: #999;
+                  font-size: 16px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

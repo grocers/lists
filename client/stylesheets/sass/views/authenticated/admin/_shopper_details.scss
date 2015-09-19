@@ -1,0 +1,54 @@
+.app-container {
+  .body {
+    .viewport {
+      .shopper-details {
+        .loading {
+          padding-left: 20px;
+        }
+        .header {
+          margin-bottom: 0;
+          .back-to-shoppers-list {
+            color: #9EC437;
+          }
+        }
+        .content {
+          padding-left: 0;
+          padding-right: 0;
+          section {
+            border-bottom: 1px solid #ddd;
+            padding: 16px;
+            .section-name {
+              text-transform: uppercase;
+              font-weight: bold;
+              font-size: 16px;
+              color: #686868;
+              margin-bottom: 15px;
+            }
+          }
+          section.personal {
+            table {
+              width: 50%;
+              td {
+                font-size: 17px;
+                padding: 10px 15px;
+              }
+            }
+          }
+          section.lists {
+            table {
+              td, th {
+                font-size: 17px;
+              }
+              th {
+                border-bottom-width: 0;
+              }
+              .open-list-icon {
+                color: #61c1b8;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

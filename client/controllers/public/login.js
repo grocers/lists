@@ -1,8 +1,4 @@
 Template.login.onCreated(function () {
-  var redirectTo = Session.get('redirectAfterLogin');
-  if (!redirectTo) {
-    Session.set('redirectAfterLogin', 'lists');
-  }
 });
 
 Template.login.helpers({
@@ -45,7 +41,6 @@ Template.login.events({
           Session.set('logInInProgress', false);
           sAlert.success('Awesome! You are now logged in.');
           resetForm();
-          Session.set('redirectAfterLogin', 'lists');
         }
       });
     }

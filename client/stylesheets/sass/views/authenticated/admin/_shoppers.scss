@@ -1,0 +1,29 @@
+.app-container {
+  .body {
+    .viewport {
+      .shoppers-list {
+        .dt-bootstrap.dataTables_wrapper {
+          table {
+            margin-bottom: 1em !important;
+            thead {
+              th {
+                font-size: 16px;
+                color: #92948E;
+              }
+            }
+            tbody {
+              td {
+                padding: 10px 18px;
+                font-size: 16px;
+                color: #818181;
+              }
+              .view-shopper-details {
+                color: #61c1b8;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
