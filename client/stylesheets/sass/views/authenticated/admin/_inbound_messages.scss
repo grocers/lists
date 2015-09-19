@@ -1,0 +1,68 @@
+.app-container {
+  .body {
+    .viewport {
+      .inbound-messages {
+        .loading {
+          padding-left: 20px;
+        }
+        .header {
+          margin-bottom: 0;
+          .back-to-shoppers-list {
+            color: #9EC437;
+          }
+        }
+        .content {
+          .messages-table-box {
+            padding-left: 0;
+            padding-right: 0;
+            max-height: 330px;
+            overflow-y: scroll;
+            border-bottom: 1px solid #ddd;
+            table {
+              margin-bottom: 0;
+              th, td {
+                padding: 15px 17px;
+                font-size: 17px;
+              }
+              th {
+                border-bottom-width: 0;
+                color: #999;
+              }
+              tr:last-child td {
+                border-bottom: 1px solid #ddd;
+              }
+              tr.unread td {
+                font-weight: bold;
+              }
+              tr:not(.unread) td {
+                font-weight: normal;
+                background-color: #eee;
+              }
+            }
+          }
+        }
+        .message-detail-view {
+          border-bottom: 1px solid #ddd;
+          .sender {
+            border: 1px solid #9EC437;
+            background-color: #9EC437;
+            color: #fff;
+            padding: 10px 15px;
+            .lead {
+              margin-bottom:0;
+              font-size: 18px;
+              font-weight: bold;
+            }
+          }
+          .full-message {
+            padding: 40px 15px;
+            .lead {
+              margin-bottom: 0;
+              font-size: 18px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

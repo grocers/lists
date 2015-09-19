@@ -1,0 +1,62 @@
+<template name="adminInboundMessages">
+  <div class="row inbound-messages">
+    <div class="col-lg-12 header">
+      <p class="lead">Inbound Messages</p>
+    </div>
+    <div class="col-lg-12 content">
+      <div class="row">
+        {{#if Template.subscriptionsReady}}
+        {{#if hasMessages}}
+        <div class="col-lg-12 messages-table-box">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Sent</th>
+                <th>From</th>
+                <th>Summary</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each unreadMessages}}
+              <tr class="message unread">
+                <td>{{fromNow createdAt}}</td>
+                <td>{{userName}}</td>
+                <td>{{text}}</td>
+              </tr>
+              {{/each}}
+              {{#each readMessages}}
+              <tr class="message">
+                <td>{{fromNow createdAt}}</td>
+                <td>{{userName}}</td>
+                <td>{{text}}</td>
+              </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+        {{#if currentMessage}}
+        <div class="col-lg-12 message-detail-view">
+          <div class="row">
+            <div class="col-lg-12 sender">
+              <p class="lead">{{currentMessage.userName}} Wrote ({{fromNow currentMessage.createdAt}}):</p>
+            </div>
+            <div class="col-lg-12 full-message">
+              <p class="lead">{{currentMessage.text}}</p>
+            </div>
+          </div>
+        </div>
+        {{else}}
+        <p class="lead text-muted" style="position: relative; top: 15px; left: 15px; z-index: -100;">Click a message to view full details.</p>
+        {{/if}}
+        {{else}}
+          <p class="lead">No messages...</p>
+        {{/if}}
+        {{else}}
+        <div class="col-lg-12">
+          <p class="lead">Loading...</p>
+        </div>
+        {{/if}}
+      </div>
+		</div>
+  </div>
+</template>
