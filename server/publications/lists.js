@@ -49,7 +49,6 @@ Meteor.publish('shopperLists', function(shopperId) {
 });
 
 Meteor.publish('listsAddedThisWeek', function(){
-  console.log('++');
   var userId = this.userId;
   if (!userId) {
     return [];
@@ -66,11 +65,9 @@ Meteor.publish('listsAddedThisWeek', function(){
 
   var startOfWeek = moment().startOf('week');
 
-  var results = Lists.find({
+  return Lists.find({
     createdAt: {
       $gte: new Date(startOfWeek)
     }
   });
-  console.log('--', results.count());
-  return results;
 });
