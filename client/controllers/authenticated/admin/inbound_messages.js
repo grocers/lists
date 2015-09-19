@@ -37,6 +37,9 @@ Template.adminInboundMessages.helpers({
     } else {
       return !read;
     }
+  },
+  preview:function (text) {
+    return text.substr(0, 15) + '...'; 
   }
 });
 
