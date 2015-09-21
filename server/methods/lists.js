@@ -14,7 +14,7 @@ Meteor.methods({
       throw new Meteor.Error(e.message);
     }
 
-    var exists = Lists.findOne({name: new RegExp(list.name, 'i'), owner: Meteor.userId()});
+    var exists = Lists.findOne({name: new RegExp('^' + list.name + '$', 'i'), owner: Meteor.userId()});
     if (exists && exists.owner === Meteor.userId()) {
       throw new Meteor.Error('duplicate-name', 'You already have a list with that name.');
     }
