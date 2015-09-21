@@ -8,6 +8,14 @@ Meteor.publish('aShopper', function(shopperId){
   return Meteor.users.find({_id: shopperId});
 });
 
+Meteor.publish('loggedInShopper', function(){
+  var userId = this.userId;
+  if (!userId) {
+    return null;
+  }
+
+  return Meteor.users.find({_id: userId});
+});
 
 Meteor.publish('allShoppers', function(){
   var userId = this.userId;

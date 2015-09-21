@@ -14,5 +14,31 @@ Meteor.methods({
     }
 
     return Accounts.createUser(user);
+  },
+  updateFullname: function (user) {
+    try {
+      check(user, {
+        id: String,
+        fullName: String
+      });
+    } catch (e) {
+      throw new Meteor.Error('bad-parameter');
+    }
+
+    Meteor.users.update({_id: user.id}, {$set: {"profile.fullName": user.fullName}});
+    return;
+  },
+  updateTelephone: function (user) {
+    try {
+      check(user, {
+        id: String,
+        telephone: String
+      });
+    } catch (e) {
+      throw new Meteor.Error('bad-parameter');
+    }
+
+    Meteor.users.update({_id: user.id}, {$set: {"profile.telephone": user.telephone}});
+    return;
   }
 });
