@@ -11,9 +11,13 @@
 @import "views/public/login";
 
 /* Authenticated */
+// --> Shoppers
 @import  "views/authenticated/lists";
 @import  "views/authenticated/create_list";
 @import  "views/authenticated/view_list";
+@import  "views/authenticated/shopper_account";
+
+// --Admin
 @import  "views/authenticated/admin/overview";
 @import  "views/authenticated/admin/shoppers";
 @import  "views/authenticated/admin/shopper_details";

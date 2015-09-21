@@ -1,0 +1,100 @@
+<template name="shopperAccount">
+  <div class="row shopper-account">
+    <div class="col-lg-2 sidebar">
+      <p class="lead">Your Account</p>
+    </div>
+    <div class="col-lg-10 profile-information">
+      <div class="row">
+        {{#if Template.subscriptionsReady}}
+        <div class="col-lg-12"> 
+          <div class="section">
+            <h3 class="heading">Account Credentials</h3>
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td>Email</td>
+                  <td>{{email}}</td>
+                </tr>
+                <tr>
+                  <td>Password</td>
+                  <td>&ofcir;&ofcir;&ofcir;&ofcir;&ofcir;&ofcir;</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="section">
+            <h3 class="heading">Personal Information</h3>
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td>Full Name</td>
+                  <td>
+                    {{#if editingFullname}}
+                    <input type="text" value="{{fullName}}" class="fullname-edit-input" disabled="{{updatingFullname}}" />
+                    {{else}}
+                    {{fullName}}
+                    {{/if}}
+                  </td>
+                  <td>
+                    {{#if editingFullname}}
+                    {{#if updatingFullname}}
+                    <span>Please wait...</span>
+                    {{else}}
+                      <a href="#" class="save-fullname-changes" title="Save Changes"><i class="fa fa-save"></i></a> &nbsp;
+                      <a href="#" class="cancel-fullname-edit" title="Cancel Edit"><i class="fa fa-times-circle"></i></a>
+                    {{/if}}
+                    {{else}}
+                      <a href="#" class="edit-name">Change</a>
+                    {{/if}}
+                  </td>
+                </tr>
+                <tr>
+                  <td>Telephone</td>
+                  <td>
+                    {{#if editingTelephone}}
+                    <input type="text" value="{{telephone}}" class="telephone-edit-input" disabled="{{updatingTelephone}}" />
+                    {{else}}
+                    {{telephone}}
+                    {{/if}}
+                  </td>
+                  <td>
+                    {{#if editingTelephone}}
+                    {{#if updatingTelephone}}
+                    <span>Please wait...</span>
+                    {{else}}
+                    <a href="#" class="save-telephone-changes" title="Save Changes"><i class="fa fa-save"></i></a> &nbsp;
+                    <a href="#" class="cancel-telephone-edit" title="Cancel Edit"><i class="fa fa-times-circle"></i></a>
+                    {{/if}}
+                    {{else}}
+                    <a href="#" class="edit-telephone">Change</a>
+                    {{/if}}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="section">
+            <h3 class="heading">Address</h3>
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td>Street Address</td>
+                  <td>1 Banku Loop</td>
+                </tr>
+                <tr>
+                  <td>Town/Suburb</td>
+                  <td>Adjirigarnor</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        {{else}}
+        <div class="col-lg-12">
+          <p class="lead">Loading...</p>
+        </div>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</template>

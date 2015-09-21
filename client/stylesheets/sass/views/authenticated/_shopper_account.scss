@@ -1,0 +1,40 @@
+.app-container {
+  .body {
+    .shopper-account {
+      .sidebar {
+        .lead {
+          color: #9dc626;
+        }
+      }
+      .profile-information {
+        .section {
+          width: 50%;
+          border: 1px solid #eee;
+          @include border-radius(5px);
+          padding: 20px;
+          margin-bottom: 2em;
+          .heading {
+            margin: 0;
+            margin-bottom: 20px;
+            color: #61c1b8;
+          }
+          table {
+            margin-bottom: 0;
+            td {
+              border-width: 0;
+              font-size: 15px;
+              .save-fullname-changes,
+              .save-telephone-changes {
+                color: #61c1b8;
+              }
+              .cancel-fullname-edit,
+              .cancel-telephone-edit {
+                color: #e25251;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
