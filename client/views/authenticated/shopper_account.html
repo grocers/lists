@@ -40,11 +40,11 @@
                     {{#if updatingFullname}}
                     <span>Please wait...</span>
                     {{else}}
-                      <a href="#" class="save-fullname-changes" title="Save Changes"><i class="fa fa-save"></i></a> &nbsp;
-                      <a href="#" class="cancel-fullname-edit" title="Cancel Edit"><i class="fa fa-times-circle"></i></a>
+                    <a href="#" class="save-fullname-changes" title="Save Changes"><i class="fa fa-save"></i></a> &nbsp;
+                    <a href="#" class="cancel-fullname-edit" title="Cancel Edit"><i class="fa fa-times-circle"></i></a>
                     {{/if}}
                     {{else}}
-                      <a href="#" class="edit-name">Change</a>
+                    <a href="#" class="edit-name">Change</a>
                     {{/if}}
                   </td>
                 </tr>
@@ -75,18 +75,142 @@
           </div>
           <div class="section">
             <h3 class="heading">Address</h3>
+            {{#if hasAddress}}
+            <div class="panel panel-default">
+              <div class="panel-body text-muted">
+                <strong>Important:</strong> If you use the link below to automatically fill out your address, the address information might be incorrect (in some cases), depending on where you are currently located.<br /> <br /> This is because some neighborhoods have poor coverage on Google maps. So please be sure to double check the address before saving.
+              </div>
+            </div>
             <table class="table">
               <tbody>
                 <tr>
-                  <td>Street Address</td>
-                  <td>1 Banku Loop</td>
+                  {{#if gettingCurrentLocation}}
+                  <td colspan="2"><p class="lead text-muted" style="font-size: 16px; margin-bottom: 0;">Fetching your current location...</p></td>
+                  {{else}}
+                  <td colspan="2" class="text-muted">Update your address details or <a href="#" id="current-address-use-current-location">use your current location</a></td>
+                  {{/if}}
                 </tr>
                 <tr>
-                  <td>Town/Suburb</td>
-                  <td>Adjirigarnor</td>
+                  <td>House Number</td>
+                  <td>
+                    {{#if editingCurrentAddressHouseNumber}}
+                    <input value="{{currentAddress.houseNumber}}" class="current-address-edit-input" id="current-address-house-number" type="text" disabled="{{updatingCurrentAddressHouseNumber}}" />
+                    {{else}}
+                    {{currentAddress.houseNumber}}
+                    {{/if}}
+                  </td>
+                  <td>
+                    {{#if editingCurrentAddressHouseNumber}}
+                    {{#if updatingCurrentAddressHouseNumber}}
+                    <span>Please wait...</span>
+                    {{else}}
+                    {{#unless bulkEditingCurrentAddressViaMaps}}
+                    <a href="#" class="save-current-address-house-number-changes" title="Save Changes"><i class="fa fa-save"></i></a> &nbsp;
+                    <a href="#" class="cancel-current-address-house-number-edit" title="Cancel Edit"><i class="fa fa-times-circle"></i></a>
+                    {{/unless}}
+                    {{/if}}
+                    {{else}}
+                    <a href="#" class="edit-current-address-house-number">Change</a>
+                    {{/if}}
+                  </td>
+                </tr>
+                <tr>
+                  <td>Street Name</td>
+                  <td>
+                    {{#if editingCurrentAddressStreet}}
+                    <input value="{{currentAddress.street}}" class="current-address-edit-input" id="current-address-street-name" type="text" disabled="{{updatingCurrentAddressStreet}}" />
+                    {{else}}
+                    {{currentAddress.street}}
+                    {{/if}}
+                  </td>
+                  <td>
+                    {{#if editingCurrentAddressStreet}}
+                    {{#if updatingCurrentAddressStreet}}
+                    <span>Please wait...</span>
+                    {{else}}
+                    {{#unless bulkEditingCurrentAddressViaMaps}}
+                    <a href="#" class="save-current-address-street-changes" title="Save Changes"><i class="fa fa-save"></i></a> &nbsp;
+                    <a href="#" class="cancel-current-address-street-edit" title="Cancel Edit"><i class="fa fa-times-circle"></i></a>
+                    {{/unless}}
+                    {{/if}}
+                    {{else}}
+                    <a href="#" class="edit-current-address-street">Change</a>
+                    {{/if}}
+                  </td>
+                </tr>
+                <tr>
+                  <td>Suburb</td>
+                  <td>
+                    {{#if editingCurrentAddressSuburb}}
+                    <input value="{{currentAddress.suburb}}" class="current-address-edit-input" id="current-address-suburb" type="text" disabled="{{updatingCurrentAddressSuburb}}" />
+                    {{else}}
+                    {{currentAddress.suburb}}
+                    {{/if}}
+                  </td>
+                  <td>
+                    {{#if editingCurrentAddressSuburb}}
+                    {{#if updatingCurrentAddressSuburb}}
+                    <span>Please wait...</span>
+                    {{else}}
+                    {{#unless bulkEditingCurrentAddressViaMaps}}
+                    <a href="#" class="save-current-address-suburb-changes" title="Save Changes"><i class="fa fa-save"></i></a> &nbsp;
+                    <a href="#" class="cancel-current-address-suburb-edit" title="Cancel Edit"><i class="fa fa-times-circle"></i></a>
+                    {{/unless}}
+                    {{/if}}
+                    {{else}}
+                    <a href="#" class="edit-current-address-suburb">Change</a>
+                    {{/if}}
+                  </td>
+                </tr>
+                {{#if bulkEditingCurrentAddressViaMaps}}
+                <tr>
+                  <td></td>
+                  <td><button class="btn btn-success bulk-save-current-address-changes" disabled="{{bulkUpdatingCurrentAddress}}">
+                      {{#if bulkUpdatingCurrentAddress}}
+                        Please wait...
+                      {{else}}
+                        Save Changes
+                      {{/if}}
+                  </button></td>
+                  <td></td>
+                </tr>
+                {{/if}}
+              </tbody>
+            </table>
+            {{else}}
+            <div class="panel panel-default">
+              <div class="panel-body text-muted">
+                <strong>Important:</strong> If you use the link below to automatically fill out your address, the address information might be incorrect (in some cases), depending on where you are currently located.<br /> <br /> This is because some neighborhoods have poor coverage on Google maps. So please be sure to double check the address before saving.
+              </div>
+            </div>
+            <table class="table">
+              <tbody>
+                <tr>
+                  {{#if gettingCurrentLocation}}
+                  <td colspan="2"><p class="lead text-muted" style="font-size: 16px; margin-bottom: 0;">Fetching your current location...</p></td>
+                  {{else}}
+                  <td colspan="2" class="text-muted">Type it out or <a href="#" id="new-address-use-current-location">use your current location</a></td>
+                  {{/if}}
+                </tr>
+                <tr>
+                  <td>House Number</td>
+                  <td><input class="new-address-input" id="new-address-house-number" type="text" disabled="{{savingNewAddress}}" /></td>
+                </tr>
+                <tr>
+                  <td>Street Name</td>
+                  <td><input class="new-address-input" id="new-address-street-name" type="text" disabled="{{savingNewAddress}}" /></td>
+                </tr>
+                <tr>
+                  <td>Suburb</td>
+                  <td><input class="new-address-input" id="new-address-suburb" type="text" disabled="{{savingNewAddress}}" /></td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td><button type="button" class="btn btn-success" id="new-address-save" disabled="{{savingNewAddress}}"><i class="fa fa-plus"></i> Save Address</button></td>
                 </tr>
               </tbody>
             </table>
+            {{/if}}
           </div>
         </div>
         {{else}}

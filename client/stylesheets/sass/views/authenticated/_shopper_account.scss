@@ -8,7 +8,7 @@
       }
       .profile-information {
         .section {
-          width: 50%;
+          width: 55%;
           border: 1px solid #eee;
           @include border-radius(5px);
           padding: 20px;
@@ -24,10 +24,16 @@
               border-width: 0;
               font-size: 15px;
               .save-fullname-changes,
+              .save-current-address-house-number-changes,
+              .save-current-address-street-changes,
+              .save-current-address-suburb-changes,
               .save-telephone-changes {
                 color: #61c1b8;
               }
               .cancel-fullname-edit,
+              .cancel-current-address-house-number-edit,
+              .cancel-current-address-street-edit,
+              .cancel-current-address-suburb-edit,
               .cancel-telephone-edit {
                 color: #e25251;
               }
