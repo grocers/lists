@@ -74,7 +74,13 @@
             </table>
           </div>
           <div class="section">
-            <h3 class="heading">Address</h3>
+            <h3 id="address-section-heading" class="heading">Address</h3>
+            {{#if addressIsPinnableOnMap}}
+            <div class="map">
+              <div id="canvas"></div>
+            </div>
+            {{renderMap}}
+            {{/if}}
             {{#if hasAddress}}
             <div class="panel panel-default">
               <div class="panel-body text-muted">
