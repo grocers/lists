@@ -27,7 +27,32 @@
 
       <section class="address">
         <p class="lead section-name">Address</p>
-        <p class="lead text-muted">To be implemented</p>
+        {{#if hasAddress}}
+        <table class="table">
+          <tbody>
+            <tr>
+              <td>House Number</td>
+              <td>
+                {{shopperAddress.houseNumber}}
+              </td>
+            </tr>
+            <tr>
+              <td>Street Name</td>
+              <td>
+                {{shopperAddress.street}}
+              </td>
+            </tr>
+            <tr>
+              <td>Suburb</td>
+              <td>
+                {{shopperAddress.suburb}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        {{else}}
+        <p class="lead text-muted">No address found for this user.</p>
+        {{/if}}
       </section>
 
       <section class="lists">
@@ -58,6 +83,6 @@
       {{else}}
       <p class="lead loading">Loading...</p>
       {{/if}}
-		</div>
+    </div>
   </div>
 </template>

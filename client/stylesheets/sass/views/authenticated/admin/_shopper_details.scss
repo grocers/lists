@@ -34,6 +34,11 @@
               }
             }
           }
+          section.address {
+            tr:first-child td {
+              border-top-width: 0; 
+            }
+          }
           section.lists {
             table {
               td, th {
