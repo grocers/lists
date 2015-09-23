@@ -60,6 +60,8 @@ Meteor.methods({
 
     check(address, {
       street: String,
+      latitude: Match.Optional(Number),
+      longitude: Match.Optional(Number),
       id: String
     });
 
@@ -79,7 +81,11 @@ Meteor.methods({
       }
     }
 
-    Addresses.update({_id: address.id}, {$set: {"street": address.street, updatedAt: new Date()}});
+    if (address.latitude && address.longitude) {
+      Addresses.update({_id: address.id}, {$set: {"street": address.street, "latitude": address.latitude, "longitude": address.longitude, updatedAt: new Date()}});
+    } else {
+      Addresses.update({_id: address.id}, {$set: {"street": address.street, updatedAt: new Date()}});
+    }
     return;
   },
   updateSuburb: function (address) {
@@ -89,6 +95,8 @@ Meteor.methods({
 
     check(address, {
       suburb: String,
+      latitude: Match.Optional(Number),
+      longitude: Match.Optional(Number),
       id: String
     });
 
@@ -108,7 +116,11 @@ Meteor.methods({
       }
     }
 
-    Addresses.update({_id: address.id}, {$set: {"suburb": address.suburb, updatedAt: new Date()}});
+    if (address.latitude && address.longitude) {
+      Addresses.update({_id: address.id}, {$set: {"suburb": address.suburb, "latitude": address.latitude, "longitude": address.longitude, updatedAt: new Date()}});
+    } else {
+      Addresses.update({_id: address.id}, {$set: {"suburb": address.suburb, updatedAt: new Date()}});
+    }
     return;
   },
   updateAddress: function (address) {
@@ -120,6 +132,8 @@ Meteor.methods({
       houseNumber: String,
       street: String,
       suburb: String,
+      latitude: Match.Optional(Number),
+      longitude: Match.Optional(Number),
       id: String
     });
 
@@ -139,7 +153,11 @@ Meteor.methods({
       }
     }
 
-    Addresses.update({_id: address.id}, {$set: {"houseNumber": address.houseNumber, "street": address.street, "suburb": address.suburb, updatedAt: new Date()}});
+    if (address.latitude && address.longitude) {
+      Addresses.update({_id: address.id}, {$set: {"houseNumber": address.houseNumber, "street": address.street, "suburb": address.suburb, "latitude": address.latitude, "longitude": address.longitude, updatedAt: new Date()}});
+    } else {
+      Addresses.update({_id: address.id}, {$set: {"houseNumber": address.houseNumber, "street": address.street, "suburb": address.suburb, updatedAt: new Date()}});
+    }
     return;
   }
 });
