@@ -14,17 +14,25 @@ Template.adminShopperDetails.onCreated(function () {
         sAlert.error(error.reason || 'We could not process your last request.');
       },
       onReady: function () {
-        self.subscribe('shopperLists', shopperId, {
+        self.subscribe('shopperAddress', shopperId, {
           onError: function (error) {
             console.log('Error:', error);
             sAlert.error(error.reason || 'We could not process your last request.');
           },
           onReady: function () {
-            // self.subscribe('shopperLists', shopperId);
-            var lists = Lists.find({owner: shopperId});
-            lists.forEach(function (list) {
-              var listId = list._id;
-              self.subscribe('listItems', listId);
+            self.subscribe('shopperLists', shopperId, {
+              onError: function (error) {
+                console.log('Error:', error);
+                sAlert.error(error.reason || 'We could not process your last request.');
+              },
+              onReady: function () {
+                // self.subscribe('shopperLists', shopperId);
+                var lists = Lists.find({owner: shopperId});
+                lists.forEach(function (list) {
+                  var listId = list._id;
+                  self.subscribe('listItems', listId);
+                });
+              }
             });
           }
         });
@@ -52,5 +60,13 @@ Template.adminShopperDetails.helpers({
   itemsCount: function (listId) {
     var count = Items.find({list: listId}).count();
     return (count === 0) ? 'Empty' : ((count === 1) ? count + ' item' : count + ' items');
+  },
+  hasAddress: function () {
+    var shopperId = FlowRouter.getParam('id');
+    return !! Addresses.findOne({user: shopperId});
+  },
+  shopperAddress: function () {
+    var shopperId = FlowRouter.getParam('id');
+    return Addresses.findOne({user: shopperId});
   }
 });
