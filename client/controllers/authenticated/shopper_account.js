@@ -19,6 +19,34 @@ var getCurrentAddress = function () {
   return Addresses.findOne({user: Meteor.userId()});
 };
 
+var addressHasCoordinates = function () {
+  var address = getCurrentAddress();
+  if (!address) {
+    return false;
+  } else {
+    return address.latitude && address.longitude;
+  }
+};
+
+var renderMap = function (center) {
+  var map,
+  mapOptions = {
+    zoom: 17,
+    center: { lat: center.latitude, lng: center.longitude},
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  };
+
+  map = new google.maps.Map(document.getElementById('canvas'), mapOptions);
+
+  var markerPosition = new google.maps.LatLng(center.latitude, center.longitude);
+  var marker = new google.maps.Marker({
+    position: markerPosition,
+    title:"You are here"
+  });
+
+  marker.setMap(map);
+};
+
 Template.shopperAccount.helpers({
   shopper: function () {
     return getUser();
@@ -76,6 +104,21 @@ Template.shopperAccount.helpers({
   },
   bulkUpdatingCurrentAddress: function () {
     return Session.get('bulkUpdatingCurrentAddress');
+  },
+  addressIsPinnableOnMap: function () {
+    return addressHasCoordinates();
+  },
+  renderMap: function () {
+    function render () {
+      if ($('#canvas').length === 0) {
+        setTimeout(render, 2000);
+      } else {
+        var address = getCurrentAddress();
+        renderMap({latitude: address.latitude, longitude: address.longitude});
+      }
+    }
+
+    render();
   }
 });
 
@@ -171,6 +214,7 @@ Template.shopperAccount.events({
       Session.set('addressLatitude', result.latitude);
       Session.set('addressLongitude', result.longitude);
       alert("We have automatically filled out your STREET NAME and SUBURB. Please add your house number before saving.");
+      renderMap({latitude: result.latitude, longitude: result.longitude});
     });
   },
   "click #new-address-save": function (event) {
@@ -192,15 +236,22 @@ Template.shopperAccount.events({
       user: Meteor.userId()
     };
 
-    Session.set('savingNewAddress', true);
-    Meteor.call('newAddress', address, function (error) {
-      if (error) {
-        console.log('Error:', error);
-        return sAlert.error(error.reason || 'Oops. We had trouble processing your last request.');
-      } else {
-        sAlert.success('Your address was saved successfully');
-        clearNewAddressForm();
+    Maps.geoCoordsFromAddress(address, function (coords) {
+      if (coords) {
+        address.latitude = coords.latitude;
+        address.longitude = coords.longitude;
       }
+
+      Session.set('savingNewAddress', true);
+      Meteor.call('newAddress', address, function (error) {
+        if (error) {
+          console.log('Error:', error);
+          return sAlert.error(error.reason || 'Oops. We had trouble processing your last request.');
+        } else {
+          sAlert.success('Your address was saved successfully');
+          clearNewAddressForm();
+        }
+      });
     });
   },
   "click .edit-current-address-house-number": function (event) {
@@ -265,17 +316,30 @@ Template.shopperAccount.events({
         return sAlert.warning('The street field cannot be blank.');
       }
 
-      Session.set('updatingCurrentAddressStreet', true);
-      Meteor.call('updateStreet', address, function (error) {
-        Session.set('updatingCurrentAddressStreet', false);
-        if (error) {
-          console.log('Error:', error);
-          sAlert.error(error.reason || 'Oops. We had trouble processing your last request.');
-          return;
-        } else {
-          Session.set('editingCurrentAddressStreet', false);
-          Session.set('currentAddressStreetEdited', false);
+      var currentAddress = getCurrentAddress();
+      var update = {
+        houseNumber: currentAddress.houseNumber,
+        street: address.street, // use the just typed in street
+        suburb: currentAddress.suburb
+      };
+
+      Maps.geoCoordsFromAddress(update, function (coords) {
+        if (coords) {
+          address.latitude = coords.latitude;
+          address.longitude = coords.longitude;
         }
+        Session.set('updatingCurrentAddressStreet', true);
+        Meteor.call('updateStreet', address, function (error) {
+          Session.set('updatingCurrentAddressStreet', false);
+          if (error) {
+            console.log('Error:', error);
+            sAlert.error(error.reason || 'Oops. We had trouble processing your last request.');
+            return;
+          } else {
+            Session.set('editingCurrentAddressStreet', false);
+            Session.set('currentAddressStreetEdited', false);
+          }
+        });
       });
     } else {
       Session.set('editingCurrentAddressStreet', false);
@@ -304,17 +368,31 @@ Template.shopperAccount.events({
         return sAlert.warning('The suburb field cannot be blank.');
       }
 
-      Session.set('updatingCurrentAddressSuburb', true);
-      Meteor.call('updateSuburb', address, function (error) {
-        Session.set('updatingCurrentAddressSuburb', false);
-        if (error) {
-          console.log('Error:', error);
-          sAlert.error(error.reason || 'Oops. We had trouble processing your last request.');
-          return;
-        } else {
-          Session.set('editingCurrentAddressSuburb', false);
-          Session.set('currentAddressSuburbEdited', false);
+      var currentAddress = getCurrentAddress();
+      var update = {
+        houseNumber: currentAddress.houseNumber,
+        street: currentAddress.street,
+        suburb: address.suburb  // use the just typed in suburb
+      };
+
+      Maps.geoCoordsFromAddress(update, function (coords) {
+        if (coords) {
+          address.latitude = coords.latitude;
+          address.longitude = coords.longitude;
         }
+
+        Session.set('updatingCurrentAddressSuburb', true);
+        Meteor.call('updateSuburb', address, function (error) {
+          Session.set('updatingCurrentAddressSuburb', false);
+          if (error) {
+            console.log('Error:', error);
+            sAlert.error(error.reason || 'Oops. We had trouble processing your last request.');
+            return;
+          } else {
+            Session.set('editingCurrentAddressSuburb', false);
+            Session.set('currentAddressSuburbEdited', false);
+          }
+        });
       });
     } else {
       Session.set('editingCurrentAddressSuburb', false);
@@ -350,6 +428,9 @@ Template.shopperAccount.events({
     if (!(address.houseNumber && address.street && address.suburb)) {
       return sAlert.warning('The address is missing some fields.');
     }
+
+    address.latitude = Session.get('currentAddressLatitude');
+    address.longitude = Session.get('currentAddressLongitude');
 
     Session.set('bulkUpdatingCurrentAddress', true);
     Meteor.call('updateAddress', address, function (error) {
