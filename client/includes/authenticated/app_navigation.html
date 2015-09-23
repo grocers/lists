@@ -42,7 +42,9 @@
               {{/if}}
               <span class="caret"></span></a>
             <ul class="dropdown-menu">
+              {{#if isCustomer}}
               <li><a href="{{pathFor 'shopperAccount'}}"><i class="fa fa-user"></i> My Account</a></li>
+              {{/if}}
               <!-- <li role="separator" class="divider"></li> -->
               <!-- <li class="dropdown-header">Nav header</li> -->
               <li><a href="{{pathFor 'logout'}}"><i class="fa fa-sign-out"></i> Logout</a></li>
