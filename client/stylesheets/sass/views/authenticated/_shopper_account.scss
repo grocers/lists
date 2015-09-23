@@ -39,6 +39,14 @@
               }
             }
           }
+          .map {
+            margin-bottom: 1em;
+            #canvas {
+              height: 170px;
+              border: 1px solid #ddd;
+              @include border-radius(5px);
+            }
+          }
         }
       }
     }
