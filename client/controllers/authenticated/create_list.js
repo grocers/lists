@@ -87,6 +87,7 @@ Template.createList.events({
   "click .add-item-btn": function (event) {
     var item = {
       description: $('#item-description').val(),
+      brand: $('#item-brand').val(),
       quantity: $('#item-quantity').val(),
       packingUnit: $('#item-quantity-unit').val()
     };

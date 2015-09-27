@@ -76,6 +76,7 @@ Template.viewList.events({
   "click .add-item-btn": function (event) {
     var item = {
       description: $('#item-description').val(),
+      brand: $('#item-brand').val(),
       quantity: $('#item-quantity').val(),
       packingUnit: $('#item-quantity-unit').val()
     };
@@ -114,6 +115,7 @@ Template.viewList.events({
       var item = {
         id: this._id,
         description: $('#new-item-description').val(),
+        brand: $('#new-item-brand').val(),
         quantity: $('#new-item-quantity').val(),
         packingUnit: $('#item-quantity-unit').val()
       };
@@ -155,7 +157,7 @@ Template.viewList.events({
       });
     }
   },
-  "change #new-item-description, change #new-item-quantity, change #item-quantity-unit": function (event) {
+  "change #new-item-description, change #new-item-brand, change #new-item-quantity, change #item-quantity-unit": function (event) {
     Session.set('item-' + this._id + '-edited', true);
   },
   "click .delete-list": function (event) {

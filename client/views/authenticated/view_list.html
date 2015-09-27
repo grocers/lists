@@ -52,6 +52,7 @@
                 <tr>
                   <th>Edit</th>
                   <th>Item Description</th>
+                  <th>Brand</th>
                   <th>Quantity</th>
                   <th>Packing Unit</th>
                   <th>&nbsp;</th>
@@ -77,6 +78,13 @@
                       <input type="text" value="{{description}}" name="new-item-description" id="new-item-description" disabled="{{isSavingChangesToItem _id}}" />
                       {{else}}
                         {{description}}
+                      {{/if}}
+                    </td>
+                    <td>
+                      {{#if isEditingItem _id}}
+                      <input type="text" value="{{brand}}" name="new-item-brand" id="new-item-brand" disabled="{{isSavingChangesToItem _id}}" />
+                      {{else}}
+                      {{brand}}
                       {{/if}}
                     </td>
                     <td>

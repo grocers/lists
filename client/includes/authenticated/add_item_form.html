@@ -4,12 +4,17 @@
       <input type="text" width="30" class="form-control" id="item-description" placeholder="Add Item Description">
     </div>
     <div class="row">
-      <div class="col-lg-6">
+      <div class="col-lg-4">
+        <div class="form-group">
+          <input type="text" class="form-control" id="item-brand" placeholder="Specific Brand?">
+        </div>
+      </div>
+      <div class="col-lg-4">
         <div class="form-group">
           <input type="number" class="form-control" id="item-quantity" value="1" min="1" max="100" size="3">
         </div>
       </div>
-      <div class="col-lg-6">
+      <div class="col-lg-4">
         <div class="form-group">
           {{> itemPackingUnitOptions}}
         </div>

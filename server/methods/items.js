@@ -13,12 +13,17 @@ Meteor.methods({
     try {
       check(item, {
         description: String,
+        brand: Match.Optional(String),
         quantity: Number,
         packingUnit: String,
         list: String
       });
     } catch (e) {
       throw new Meteor.Error(e.message);
+    }
+
+    if (!item.brand) {
+      delete item.brand;
     }
 
     item.createdAt = new Date();
@@ -37,11 +42,16 @@ Meteor.methods({
       check(item, {
         id: String,
         description: String,
+        brand: Match.Optional(String),
         quantity: Number,
         packingUnit: String
       });
     } catch (e) {
       throw new Meteor.Error(e.message);
+    }
+
+    if (!item.brand) {
+      delete item.brand;
     }
 
     var target = Items.findOne(item.id);
@@ -55,8 +65,9 @@ Meteor.methods({
     }
 
     var itemId = item.id; delete item.id;
-    Items.update({_id: itemId}, {$set: item, updatedAt: new Date()});
+    item.updatedAt = new Date();
 
+    Items.update({_id: itemId}, {$set: item});
     return;
   },
   removeItem: function (itemId) {
