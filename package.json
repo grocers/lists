@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "A way for shoppers to manage their shopping lists",
   "scripts": {
-    "start": "meteor --settings settings-development.json --port 7000",
+    "start": "meteor --settings settings-development.json --port 3000",
     "staging": "modulus env set METEOR_SETTINGS \"$(cat settings-development.json)\" -p 'Grocers Lists - Staging' && modulus deploy -p 'Grocers Lists - Staging'",
     "production": "modulus env set METEOR_SETTINGS \"$(cat settings-production.json)\" -p 'Grocers Lists' && modulus deploy -p 'Grocers Lists'"
   }
