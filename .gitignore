@@ -1,3 +1,4 @@
 .meteor/local
+.TODOS.md
 settings-production.json
 settings-development.json
