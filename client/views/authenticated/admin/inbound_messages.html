@@ -43,13 +43,33 @@
             <div class="col-lg-12 full-message">
               <p class="lead">{{currentMessage.text}}</p>
             </div>
+            {{#if hasReply currentMessage}}
+            <div class="col-lg-12 read-reply-box">
+              <p class="lead"><em style="color: #aaa;">{{howLongAgo currentMessage.reply}}, {{currentMessage.reply.sentByName}} sent the following response:</em> <br /><br />
+              {{currentMessage.reply.text}}
+              </p>
+            </div>
+            {{else}}
+            <div class="col-lg-12 send-reply-box">
+              <form class="form">
+                <textarea rows="7" class="form-control" name="reply-text" id="reply-text" placeholder="Write a reply..." disabled="{{sendingMessageReply currentMessage}}"></textarea>
+              </form>
+              <button class="btn btn-success reply-button" disabled="{{sendingMessageReply currentMessage}}">
+                {{#if sendingMessageReply currentMessage}}
+                  One moment please...
+                {{else}}
+                <i class="fa fa-mail-reply"></i> Send Reply
+                {{/if}}
+              </button>
+            </div>
+            {{/if}}
           </div>
         </div>
         {{else}}
         <p class="lead text-muted" style="position: relative; top: 15px; left: 15px; z-index: -100;">Click a message to view full details.</p>
         {{/if}}
         {{else}}
-          <p class="lead">No messages...</p>
+        <p class="lead" style="padding: 15px;">No messages...</p>
         {{/if}}
         {{else}}
         <div class="col-lg-12">

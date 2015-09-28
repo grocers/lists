@@ -56,10 +56,27 @@
           }
           .full-message {
             padding: 40px 15px;
+            padding-bottom: 20px;
             .lead {
               margin-bottom: 0;
               font-size: 18px;
             }
+          }
+          .read-reply-box {
+            .lead {
+              background-color: #EEE;
+              padding: 15px;
+              font-size: 18px;
+            }
+          }
+          #reply-text {
+            margin-bottom: 20px;
+            box-shadow: none;
+            border: 1px solid #ddd;
+            font-size: 17px;
+          }
+          .reply-button {
+            margin-bottom: 1em;
           }
         }
       }
