@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "mandrill-api": {
+      "version": "1.0.45"
+    }
+  }
+}
