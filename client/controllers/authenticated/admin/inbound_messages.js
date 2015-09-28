@@ -3,6 +3,10 @@ var getMessages = function () {
   return Messages.find({}, {sort: {createdAt: -1}}).fetch();
 };
 
+var getMessage = function (messageId) {
+  return Messages.findOne(messageId);
+};
+
 Template.adminInboundMessages.onCreated(function () {
   var self = this;
   self.autorun(function () {
@@ -40,6 +44,15 @@ Template.adminInboundMessages.helpers({
   },
   preview:function (text) {
     return text.substr(0, 15) + '...'; 
+  },
+  sendingMessageReply: function (message) {
+    return Session.get('sendingMessage-' + message._id + '-reply');
+  },
+  hasReply: function (message) {
+    return !! message.reply;
+  },
+  howLongAgo: function (reply) {
+    return moment(reply.sentAt).fromNow();
   }
 });
 
@@ -55,6 +68,27 @@ Template.adminInboundMessages.events({
         return sAlert.error(error.reason || 'Oops. We had trouble processing your last request.');
       } else {
         console.log('Message marked as read...');
+      }
+    });
+  },
+  "click .reply-button": function () {
+    var replyText = $('#reply-text').val();
+    if (!replyText) {
+      return sAlert.warning('Please write a reply message before sending');
+    }
+
+    var message = getMessage(Session.get('currentMessage')._id); 
+
+    Session.set('sendingMessage-' + message._id + '-reply', true);
+    Meteor.call('sendReply', message._id, replyText, function (error) {
+      Session.set('sendingMessage-' + message._id + '-reply', false);
+      if (error) {
+        console.log('Error:', error);
+        return sAlert.error(error.reason || 'Oops. We had trouble processing your last request.');
+      } else {
+        var messages = getMessages();
+        var messageRepliedTo = lodash.find(messages, {_id: message._id});
+        Session.set('currentMessage', messageRepliedTo);
       }
     });
   }
