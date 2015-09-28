@@ -82,7 +82,7 @@ Meteor.methods({
         email: sender.emails[0].address
       }, 
       subject: '[Grocers Support] A response for your last inquiry',
-      text: 'Dear ' + sender.profile.fullName + ',<br /><br /> You left us a message ' + howLongAgo + '.' + admin + ' just wrote a response to it. See the full message below: <br /><br /> <code>' + replyText + '</code><br /><br /> To respond to this message, please reply to admin@grocers.com.gh. <br /><br /> Have a great day.'
+      text: 'Dear ' + sender.profile.fullName + ',<br /><br /> You left us a message ' + howLongAgo + '. ' + admin + ' just wrote a response to it. See the full message below: <br /><br /> <b>' + replyText + '</b><br /><br /> To respond to this message, please reply to admin@grocers.com.gh. <br /><br /> Have a great day.'
     };
 
     MandrillMailer.send(messageConfig, Meteor.bindEnvironment(function (error, response) {
