@@ -63,6 +63,7 @@ srp@1.0.3
 stevezhu:lodash@3.10.1
 templating@1.1.1
 tracker@1.0.7
+tsega:bootstrap3-datetimepicker@4.14.30_4
 twbs:bootstrap@3.3.5
 ui@1.0.6
 underscore@1.0.3
