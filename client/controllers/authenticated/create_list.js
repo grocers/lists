@@ -3,12 +3,19 @@ Template.createList.onCreated(function() {
   self.autorun(function() {
     var listId = Session.get('listId');
     self.subscribe('listItems', listId);
+    self.subscribe('aList', listId);
   });
 });
 
 Template.createList.onDestroyed(function () {
   Session.set('listId', null);
 });
+
+// Shared Code
+var getCurrentList = function () {
+  var listId = Session.get('listId');
+  return Lists.findOne({_id: listId});
+};
 
 Template.createList.helpers({
   updatingListName: function () {
@@ -38,7 +45,20 @@ Template.createList.helpers({
   },
   addingItemToList: function () {
     return Session.get('addingItemToList');
-  }
+  },
+  currentList: function () {
+    return getCurrentList();
+  },
+  deliveryDateFromNow: function () {
+    var list = getCurrentList();
+    return (list.deliversOn) ? moment(list.deliversOn).fromNow() : 'Not set';
+  },
+  showDeliveryDatePicker: function () {
+    return Session.get('showDeliveryDatePicker');
+  },
+  updatingDeliveryDate: function () {
+    return Session.get('updatingDeliveryDate');
+  },
 });
 
 Template.createList.events({
@@ -111,5 +131,43 @@ Template.createList.events({
         }
       });
     }
+  },
+  "click #set-delivery-date": function (event) {
+    event.preventDefault();
+    Session.set('showDeliveryDatePicker', true);
+
+    function enableDatePickerControl () {
+      var deliveryDatePicker = document.getElementById('delivery-date-picker-box');
+      if (deliveryDatePicker) {
+        $('.datetimepicker').datetimepicker({
+          minDate: moment()
+        });
+      } else {
+        setTimeout(enableDatePickerControl, 1000);
+      }
+    }
+
+    enableDatePickerControl();
+  },
+  "click #cancel-delivery-date-change": function (event) {
+    Session.set('showDeliveryDatePicker', false);
+  },
+  "click #save-delivery-date": function (event) {
+    var deliveryDate = $('#delivery-date').val();
+    if (!deliveryDate) {
+      return sAlert.warning('Please set a delivery date');
+    }
+
+    var list = getCurrentList();
+    Session.set('updatingDeliveryDate', true);
+    Meteor.call('setDeliveryDate', {id: list._id, deliveryDate: deliveryDate}, function (error) {
+      Session.set('updatingDeliveryDate', false);
+      if (error) {
+        console.log('Error:', error);
+        sAlert.error(error.reason || 'Oops. We had trouble processing your last request.');
+      } else {
+        Session.set('showDeliveryDatePicker', false);
+      }
+    });
   }
 });

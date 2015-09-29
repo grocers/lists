@@ -33,11 +33,35 @@
             {{#if showAddItemForm}}
             {{else}}
             <div class="row">
+              <div class="col-lg-12 delivery-date-box">
+                <p class="lead text-muted" style="font-size: 17px; padding-top: 15px;">Delivers on: 
+                  <span style="color: #61c1b8;">{{deliveryDateFromNow}}</span>
+                  <a href="#" id="set-delivery-date">[Change]</a>
+                </p>
+                {{#if showDeliveryDatePicker}}
+                <div class="input-group datetimepicker" id="delivery-date-picker-box">
+                  <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                  <input class="set-due-date form-control" disabled="{{updatingDeliveryDate}}" id="delivery-date" type="text"/>
+                </div>
+                <div class="input-group" id="" style="margin-top: 20px;">
+                  <button class="btn btn-success" id="save-delivery-date" disabled="{{updatingDeliveryDate}}">
+                    {{#if updatingDeliveryDate}}
+                    One moment please...
+                    {{else}}
+                    Set Delivery Date
+                    {{/if}}
+                  </button>
+                  <button class="btn btn-danger" id="cancel-delivery-date-change" disabled="{{updatingDeliveryDate}}">Cancel</button>
+                </div>
+                {{/if}}
+              </div>
+              {{#unless showDeliveryDatePicker}}
               <div class="col-lg-12">
                 <button class="btn btn-success show-items-list-add-btn show-add-item-form-trigger" type="button">
                   <i class="fa fa-plus"></i> Add Item
                 </button>
               </div>
+              {{/unless}}
             </div>
             {{/if}}
             {{/if}}

@@ -54,6 +54,32 @@ Meteor.methods({
     Lists.update({_id: target._id}, {$set: {name: list.name, updatedAt: new Date()}});
     return;
   },
+  setDeliveryDate: function (list) {
+    if (!Meteor.userId()) {
+      throw new Meteor.Error('not-authorized');
+    }
+    
+    try {
+      check(list, {
+        id: String,
+        deliveryDate: String
+      });
+    } catch (e) {
+      throw new Meteor.Error(e.message);
+    }
+
+    var target = Lists.findOne(list.id);
+    if (!target) {
+      throw new Meteor.Error('bad-inputs');
+    }
+
+    if (target.owner !== Meteor.userId()) {
+      throw new Meteor.Error('not-allowed');
+    }
+
+    Lists.update({_id: target._id}, {$set: {deliversOn: new Date(list.deliveryDate), updatedAt: new Date()}});
+    return;
+  },
   deleteList: function (listId) {
     if (!Meteor.userId()) {
       throw new Meteor.Error('not-authorized');
