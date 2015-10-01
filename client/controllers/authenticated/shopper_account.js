@@ -22,7 +22,11 @@ var getCurrentAddress = function () {
 var addressHasCoordinates = function () {
   var address = getCurrentAddress();
   if (!address) {
-    return false;
+    if (Session.get('addressLatitude') && Session.get('addressLongitude')) {
+      return true;
+    } else {
+      return false;
+    }
   } else {
     return address.latitude && address.longitude;
   }
@@ -109,11 +113,14 @@ Template.shopperAccount.helpers({
     return addressHasCoordinates();
   },
   renderMap: function () {
+    Session.get('addressLatitude');
+    Session.get('addressLongitude');
+
     function render () {
       if ($('#canvas').length === 0) {
         setTimeout(render, 2000);
       } else {
-        var address = getCurrentAddress();
+        var address = (Session.get('addressLatitude') && Session.get('addressLongitude')) ? {latitude: Session.get('addressLatitude'), longitude: Session.get('addressLongitude'), type: 'session'} : getCurrentAddress();
         renderMap({latitude: address.latitude, longitude: address.longitude});
       }
     }
@@ -248,6 +255,8 @@ Template.shopperAccount.events({
           console.log('Error:', error);
           return sAlert.error(error.reason || 'Oops. We had trouble processing your last request.');
         } else {
+          Session.set('addressLatitude', null);
+          Session.set('addressLongitude', null);
           sAlert.success('Your address was saved successfully');
           clearNewAddressForm();
         }
@@ -415,6 +424,8 @@ Template.shopperAccount.events({
       $('#current-address-suburb').val(result.suburb);
       Session.set('currentAddressLatitude', result.latitude);
       Session.set('currentAddressLongitude', result.longitude);
+      Session.set('addressLatitude', result.latitude);
+      Session.set('addressLongitude', result.longitude);
     });
   },
   "click .bulk-save-current-address-changes": function (event) {
