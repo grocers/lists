@@ -10,6 +10,7 @@ Meteor.methods({
       houseNumber: String,
       street: String,
       suburb: String,
+      notes: Match.Optional(String),
       latitude: Match.Optional(Number),
       longitude: Match.Optional(Number),
       user: String
@@ -123,6 +124,35 @@ Meteor.methods({
     }
     return;
   },
+  updateNotes: function (address) {
+    if (!Meteor.userId()) {
+      throw new Meteor.Error('not-authorized');
+    }
+
+    check(address, {
+      notes: String,
+      id: String
+    });
+
+    var currentUser = Meteor.users.findOne(Meteor.userId());
+    if (!currentUser) {
+      throw new Meteor.Error('not-found', 'User not found');
+    }
+    
+    var target = Addresses.findOne(address.id);
+    if (!target) {
+      throw new Meteor.Error('not-found', 'Address not found');
+    }
+
+    if (target.user !== currentUser._id) {
+      if (!currentUser.profile.isAdmin) {
+        throw new Meteor.Error('not-authorized', 'You cannot edit another user\'s address');
+      }
+    }
+
+    Addresses.update({_id: address.id}, {$set: {"notes": address.notes, updatedAt: new Date()}});
+    return;
+  },
   updateAddress: function (address) {
     if (!Meteor.userId()) {
       throw new Meteor.Error('not-authorized');
@@ -132,6 +162,7 @@ Meteor.methods({
       houseNumber: String,
       street: String,
       suburb: String,
+      notes: Match.Optional(String),
       latitude: Match.Optional(Number),
       longitude: Match.Optional(Number),
       id: String
@@ -154,9 +185,9 @@ Meteor.methods({
     }
 
     if (address.latitude && address.longitude) {
-      Addresses.update({_id: address.id}, {$set: {"houseNumber": address.houseNumber, "street": address.street, "suburb": address.suburb, "latitude": address.latitude, "longitude": address.longitude, updatedAt: new Date()}});
+      Addresses.update({_id: address.id}, {$set: {"houseNumber": address.houseNumber, "street": address.street, "suburb": address.suburb, "notes": address.notes, "latitude": address.latitude, "longitude": address.longitude, updatedAt: new Date()}});
     } else {
-      Addresses.update({_id: address.id}, {$set: {"houseNumber": address.houseNumber, "street": address.street, "suburb": address.suburb, updatedAt: new Date()}});
+      Addresses.update({_id: address.id}, {$set: {"houseNumber": address.houseNumber, "street": address.street, "suburb": address.suburb, "notes": address.notes, updatedAt: new Date()}});
     }
     return;
   }

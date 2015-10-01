@@ -103,6 +103,12 @@ Template.shopperAccount.helpers({
   updatingCurrentAddressSuburb: function () {
     return Session.get('updatingCurrentAddressSuburb');
   },
+  editingCurrentAddressNotes: function () {
+    return Session.get('editingCurrentAddressNotes');
+  },
+  updatingCurrentAddressNotes: function () {
+    return Session.get('updatingCurrentAddressNotes');
+  },
   bulkEditingCurrentAddressViaMaps: function () {
     return Session.get('bulkEditingCurrentAddressViaMaps');
   },
@@ -228,7 +234,8 @@ Template.shopperAccount.events({
     event.preventDefault();
     var houseNumber = $('#new-address-house-number').val(),
       street =$('#new-address-street-name').val(),
-      suburb = $('#new-address-suburb').val();
+      suburb = $('#new-address-suburb').val(),
+      notes = $('#new-address-notes').val();
 
     if (!(houseNumber && street && suburb)) {
       return sAlert.warning('Your address is missing some fields.');
@@ -238,6 +245,7 @@ Template.shopperAccount.events({
       houseNumber: houseNumber,
       street: street,
       suburb: suburb,
+      notes: notes,
       latitude: Session.get('addressLatitude'),
       longitude: Session.get('addressLongitude'),
       user: Meteor.userId()
@@ -407,6 +415,45 @@ Template.shopperAccount.events({
       Session.set('editingCurrentAddressSuburb', false);
     }
   },
+  "click .edit-current-address-notes": function (event) {
+    event.preventDefault();
+    Session.set('editingCurrentAddressNotes', true);
+  },
+  "change #current-address-notes": function (event) {
+    Session.set('currentAddressNotesEdited', true);
+  },
+  "click .cancel-current-address-notes-edit": function (event) {
+    event.preventDefault();
+    Session.set('editingCurrentAddressNotes', false);
+  },
+  "click .save-current-address-notes-changes": function (event) {
+    event.preventDefault();
+    if (Session.get('currentAddressNotesEdited')) {
+      var address = {
+        id: getCurrentAddress()._id,
+        notes: $('#current-address-notes').val()
+      };
+
+      if (!address.notes) {
+        return sAlert.warning('The notes field cannot be blank.');
+      }
+
+      Session.set('updatingCurrentAddressNotes', true);
+      Meteor.call('updateNotes', address, function (error) {
+        Session.set('updatingCurrentAddressNotes', false);
+        if (error) {
+          console.log('Error:', error);
+          sAlert.error(error.reason || 'Oops. We had trouble processing your last request.');
+          return;
+        } else {
+          Session.set('editingCurrentAddressNotes', false);
+          Session.set('currentAddressNotesEdited', false);
+        }
+      });
+    } else {
+      Session.set('editingCurrentAddressNotes', false);
+    }
+  },
   "click #current-address-use-current-location": function () {
     event.preventDefault();
     // Enter bulk editing mode (i.e. all address fields become editable/saveable at once)
@@ -414,6 +461,7 @@ Template.shopperAccount.events({
     Session.set('editingCurrentAddressHouseNumber', true);
     Session.set('editingCurrentAddressStreet', true);
     Session.set('editingCurrentAddressSuburb', true);
+    Session.set('editingCurrentAddressNotes', true);
     Session.set('bulkEditingCurrentAddressViaMaps', true);
 
     Maps.getCurrentLocation(function (result) {
@@ -433,7 +481,8 @@ Template.shopperAccount.events({
       id: getCurrentAddress()._id,
       houseNumber: $('#current-address-house-number').val(),
       street: $('#current-address-street-name').val(),
-      suburb: $('#current-address-suburb').val()
+      suburb: $('#current-address-suburb').val(),
+      notes: $('#current-address-notes').val()
     };
 
     if (!(address.houseNumber && address.street && address.suburb)) {
@@ -454,6 +503,7 @@ Template.shopperAccount.events({
         Session.set('editingCurrentAddressHouseNumber', false);
         Session.set('editingCurrentAddressStreet', false);
         Session.set('editingCurrentAddressSuburb', false);
+        Session.set('editingCurrentAddressNotes', false);
         Session.set('bulkEditingCurrentAddressViaMaps', false);
       }
     });

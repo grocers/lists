@@ -168,6 +168,30 @@
                     {{/if}}
                   </td>
                 </tr>
+                <tr>
+                  <td>Notes</td>
+                  <td>
+                    {{#if editingCurrentAddressNotes}}
+                    <textarea value="{{currentAddress.notes}}" class="current-address-edit-input" id="current-address-notes" disabled="{{updatingCurrentAddressNotes}}"></textarea>
+                    {{else}}
+                    {{currentAddress.notes}}
+                    {{/if}}
+                  </td>
+                  <td>
+                    {{#if editingCurrentAddressNotes}}
+                    {{#if updatingCurrentAddressNotes}}
+                    <span>Please wait...</span>
+                    {{else}}
+                    {{#unless bulkEditingCurrentAddressViaMaps}}
+                    <a href="#" class="save-current-address-notes-changes" title="Save Changes"><i class="fa fa-save"></i></a> &nbsp;
+                    <a href="#" class="cancel-current-address-notes-edit" title="Cancel Edit"><i class="fa fa-times-circle"></i></a>
+                    {{/unless}}
+                    {{/if}}
+                    {{else}}
+                    <a href="#" class="edit-current-address-notes">Change</a>
+                    {{/if}}
+                  </td>
+                </tr>
                 {{#if bulkEditingCurrentAddressViaMaps}}
                 <tr>
                   <td></td>
@@ -209,6 +233,10 @@
                 <tr>
                   <td>Suburb</td>
                   <td><input class="new-address-input" id="new-address-suburb" type="text" disabled="{{savingNewAddress}}" /></td>
+                </tr>
+                <tr>
+                  <td>Description / Notes</td>
+                  <td><textarea class="new-address-input" id="new-address-notes" disabled="{{savingNewAddress}}"></textarea></td>
                 </tr>
                 <tr>
                   <td>&nbsp;</td>
