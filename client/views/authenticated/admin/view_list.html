@@ -48,6 +48,7 @@
                   <!-- <th>Edit</th> -->
                   <th>Item Description</th>
                   <th>Brand</th>
+                  <th>Replace?</th>
                   <th>Quantity</th>
                   <th>Packing Unit</th>
                   <!-- <th>&nbsp;</th> -->
@@ -80,6 +81,13 @@
                       <input type="text" value="{{brand}}" name="new-item-brand" id="new-item-brand" disabled="{{isSavingChangesToItem _id}}" />
                       {{else}}
                         {{brand}}
+                      {{/if}}
+                    </td>
+                    <td>
+                      {{#if isEditingItem _id}}
+                      <input type="checkbox" name="new-item-allow-replacement" id="new-item-allow-replacement" disabled="{{isSavingChangesToItem _id}}" checked="{{allowReplacement}}" />
+                      {{else}}
+                      {{replaceable this}}
                       {{/if}}
                     </td>
                     <td>

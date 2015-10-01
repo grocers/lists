@@ -109,7 +109,8 @@ Template.createList.events({
       description: $('#item-description').val(),
       brand: $('#item-brand').val(),
       quantity: $('#item-quantity').val(),
-      packingUnit: $('#item-quantity-unit').val()
+      packingUnit: $('#item-quantity-unit').val(),
+      allowReplacement: !! $('#item-allow-replacement').is(':checked')
     };
 
     item.list = Session.get('listId') || undefined;

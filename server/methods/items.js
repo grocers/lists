@@ -16,7 +16,8 @@ Meteor.methods({
         brand: Match.Optional(String),
         quantity: Number,
         packingUnit: String,
-        list: String
+        list: String,
+        allowReplacement: Boolean
       });
     } catch (e) {
       throw new Meteor.Error(e.message);
@@ -44,7 +45,8 @@ Meteor.methods({
         description: String,
         brand: Match.Optional(String),
         quantity: Number,
-        packingUnit: String
+        packingUnit: String,
+        allowReplacement: Boolean
       });
     } catch (e) {
       throw new Meteor.Error(e.message);

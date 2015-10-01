@@ -94,7 +94,8 @@ Template.viewList.events({
       description: $('#item-description').val(),
       brand: $('#item-brand').val(),
       quantity: $('#item-quantity').val(),
-      packingUnit: $('#item-quantity-unit').val()
+      packingUnit: $('#item-quantity-unit').val(),
+      allowReplacement: !! $('#item-allow-replacement').is(':checked')
     };
 
     item.list = FlowRouter.getParam("id") || undefined;
@@ -133,7 +134,8 @@ Template.viewList.events({
         description: $('#new-item-description').val(),
         brand: $('#new-item-brand').val(),
         quantity: $('#new-item-quantity').val(),
-        packingUnit: $('#item-quantity-unit').val()
+        packingUnit: $('#item-quantity-unit').val(),
+        allowReplacement: !! $('#new-item-allow-replacement').is(':checked')
       };
 
       if (!(item.description && item.quantity && item.packingUnit)) {
@@ -173,7 +175,7 @@ Template.viewList.events({
       });
     }
   },
-  "change #new-item-description, change #new-item-brand, change #new-item-quantity, change #item-quantity-unit": function (event) {
+  "change #new-item-description, change #new-item-brand, change #new-item-quantity, change #item-quantity-unit, change #new-item-allow-replacement": function (event) {
     Session.set('item-' + this._id + '-edited', true);
   },
   "click .delete-list": function (event) {
