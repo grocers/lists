@@ -50,6 +50,31 @@
                 </div>
                 {{/if}}
               </div>
+              <div class="col-lg-12 preferred-store-box">
+                <p class="lead text-muted" style="font-size: 17px; padding-top: 15px;">Preferred store: 
+                  <span style="color: #61c1b8;">{{userPreferredStore}}</span>
+                  <a href="#" id="set-preferred-store">[Change]</a>
+                </p>
+                {{#if showStoreOptions}}
+                <div class="form-group datetimepicker" id="delivery-date-picker-box">
+                  <select name="preferred-store-dropdown" id="preferred-store-dropdown" class="form-control">
+                    {{#each storeOptions}}
+                    <option value="{{name}}" {{isSelected name}}>{{name}}</option>
+                    {{/each}}
+                  </select>
+                </div>
+                <div class="form-group" id="" style="margin-top: 20px;">
+                  <button class="btn btn-success" id="save-preferred-store" disabled="{{updatingPreferredStore}}">
+                    {{#if updatingPreferredStore}}
+                    One moment please...
+                    {{else}}
+                    Set Preferred Store
+                    {{/if}}
+                  </button>
+                  <button class="btn btn-danger" id="cancel-preferred-store-change" disabled="{{updatingPreferredStore}}">Cancel</button>
+                </div>
+                {{/if}}
+              </div>
               {{#unless showDeliveryDatePicker}}
               <div class="col-lg-12">
                 <button class="btn btn-success show-items-list-add-btn show-add-item-form-trigger" type="button">

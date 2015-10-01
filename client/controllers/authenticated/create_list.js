@@ -59,6 +59,26 @@ Template.createList.helpers({
   updatingDeliveryDate: function () {
     return Session.get('updatingDeliveryDate');
   },
+  userPreferredStore: function () {
+    var list = getCurrentList();
+    return (list.preferredStore) ? list.preferredStore : 'Not set';
+  },
+  showStoreOptions: function () {
+    return Session.get('showStoreOptions');
+  },
+  storeOptions: function () {
+    return [{name: 'Koala'}, {name: 'Shoprite'}, {name: 'Max Mart'}, {name: 'Marina Mall'}, {name: '37 Total Fruit Shop'}];
+  },
+  isSelected: function (store) {
+    var list = getCurrentList();
+    return list.preferredStore === store ? 'selected' : '';
+  },
+  updatingPreferredStore: function () {
+    return Session.get('updatingPreferredStore');
+  },
+  replaceable: function (item) {
+    return item.allowReplacement ? 'Yes' : 'No';
+  }
 });
 
 Template.createList.events({
@@ -137,12 +157,21 @@ Template.createList.events({
     event.preventDefault();
     Session.set('showDeliveryDatePicker', true);
 
+    var list = getCurrentList();
+    var currentDeliveryDate = list.deliversOn;
+
     function enableDatePickerControl () {
       var deliveryDatePicker = document.getElementById('delivery-date-picker-box');
       if (deliveryDatePicker) {
-        $('.datetimepicker').datetimepicker({
-          minDate: moment()
-        });
+        if (currentDeliveryDate) {
+          $('.datetimepicker').datetimepicker({
+            defaultDate: moment(currentDeliveryDate)
+          });
+        } else {
+          $('.datetimepicker').datetimepicker({
+            minDate: moment()
+          });
+        }
       } else {
         setTimeout(enableDatePickerControl, 1000);
       }
@@ -159,6 +188,13 @@ Template.createList.events({
       return sAlert.warning('Please set a delivery date');
     }
 
+    var deliveryDateMoment = new Date(deliveryDate).getTime(), 
+        now = new Date().getTime();
+
+    if (deliveryDateMoment < now) {
+      return sAlert.warning('Please set a date in the future for the delivery date');    
+    }
+
     var list = getCurrentList();
     Session.set('updatingDeliveryDate', true);
     Meteor.call('setDeliveryDate', {id: list._id, deliveryDate: deliveryDate}, function (error) {
@@ -170,5 +206,30 @@ Template.createList.events({
         Session.set('showDeliveryDatePicker', false);
       }
     });
-  }
+  },
+  "click #set-preferred-store": function (event) {
+    event.preventDefault();
+    Session.set('showStoreOptions', true);
+  },
+  "click #cancel-preferred-store-change": function (event) {
+    Session.set('showStoreOptions', false);
+  },
+  "click #save-preferred-store": function (event) {
+    var preferredStore = $('#preferred-store-dropdown').val();
+    if (!preferredStore) {
+      return sAlert.warning('Please select a preferred store');
+    }
+
+    var list = getCurrentList();
+    Session.set('updatingPreferredStore', true);
+    Meteor.call('setPreferredStore', {id: list._id, preferredStore: preferredStore}, function (error) {
+      Session.set('updatingPreferredStore', false);
+      if (error) {
+        console.log('Error:', error);
+        sAlert.error(error.reason || 'Oops. We had trouble processing your last request.');
+      } else {
+        Session.set('showStoreOptions', false);
+      }
+    });
+  },
 });

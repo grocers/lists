@@ -18,6 +18,16 @@
               </div>
             </div>
             <div class="row">
+              <div class="col-lg-12 delivery-date-box">
+                <p class="lead text-muted" style="font-size: 17px; padding-top: 15px; margin-bottom: 0;">To be delivered: 
+                  <span style="color: #61c1b8;">{{deliveryDateFromNow}}</span>
+                </p>
+              </div>
+              <div class="col-lg-12 preferred-store-box">
+                <p class="lead text-muted" style="font-size: 17px; padding-top: 15px;">Preferred store: 
+                  <span style="color: #61c1b8;">{{userPreferredStore}}</span>
+                </p>
+              </div>
               <div class="col-lg-12">
                 <a href="{{pathFor 'adminShopperDetails' id=shopperId}}" class="btn btn-success back-to-shopper-details">
                   <i class="fa fa-chevron-circle-left"></i> Back

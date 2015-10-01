@@ -24,6 +24,12 @@ Template.adminShopperDetailsViewList.onDestroyed(function() {
   $('.viewport').removeClass('no-border');
 });
 
+// Shared Code
+var getCurrentList = function () {
+  var listId = FlowRouter.getParam("listid");
+  return Lists.findOne({_id: listId});
+};
+
 Template.adminShopperDetailsViewList.helpers({
   showHeaderSpinner: function () {
     return Session.get('updatingListName') || Session.get('removingItemFromList') || Session.get('savingChangesToAnItem');
@@ -57,6 +63,13 @@ Template.adminShopperDetailsViewList.helpers({
   },
   shopperId: function () {
     return FlowRouter.getParam('id');
+  },
+  deliveryDateFromNow: function () {
+    var list = getCurrentList();
+    return (list.deliversOn) ? moment(list.deliversOn).fromNow() : 'Not set';
+  },
+  replaceable: function (item) {
+    return item.allowReplacement ? 'Yes' : 'No';
   }
 });
 
