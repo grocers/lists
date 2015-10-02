@@ -66,11 +66,15 @@ Template.adminShopperDetailsViewList.helpers({
   },
   deliveryDateFromNow: function () {
     var list = getCurrentList();
-    return (list.deliversOn) ? moment(list.deliversOn).fromNow() : 'Not set';
+    return (list && list.deliversOn) ? moment(list.deliversOn).fromNow() : 'Not set';
   },
   replaceable: function (item) {
     return item.allowReplacement ? 'Yes' : 'No';
-  }
+  },
+  userPreferredStore: function () {
+    var list = getCurrentList();
+    return (list && list.preferredStore) ? list.preferredStore : 'Not set';
+  },
 });
 
 Template.adminShopperDetailsViewList.events({
