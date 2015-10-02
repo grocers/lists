@@ -132,6 +132,9 @@ Template.shopperAccount.helpers({
     }
 
     render();
+  },
+  isChangingPassword: function () {
+    return Session.get('changingPassword');
   }
 });
 
@@ -505,6 +508,49 @@ Template.shopperAccount.events({
         Session.set('editingCurrentAddressSuburb', false);
         Session.set('editingCurrentAddressNotes', false);
         Session.set('bulkEditingCurrentAddressViaMaps', false);
+      }
+    });
+  },
+  "click .cancel-password-change": function (event) {
+    $('.form').trigger('reset');
+  },
+  "click .change-password": function (event) {
+    var currentPassword = $('#current-password').val(),
+      newPassword = $('#new-password').val(),
+      confirmPassword = $('#confirm-password').val();
+
+    if (!currentPassword) {
+      return sAlert.warning('Please enter your current password.');
+    }
+
+    if (!newPassword) {
+      return sAlert.warning('Please enter your new password.');
+    }
+
+    if (newPassword !== confirmPassword) {
+      return sAlert.warning('Your new password and the confirmation password do not match.');
+    }
+
+    var digest = Package.sha.SHA256(currentPassword);
+    
+    Session.set('changingPassword', true);
+    Meteor.call('checkPassword', digest, function(err, isValid) {
+      if (isValid) {
+        Meteor.call('setNewPassword', {id: Meteor.userId(), newPassword: newPassword}, false, function (error) {
+          Session.set('changingPassword', false);
+          if (error) {
+            console.log('Error:', error);
+            return sAlert.error(error.reason || 'We could not process your last request.');
+          }
+
+          Helpers.resetForm($('.form'));
+          $('#change-password-modal').modal('hide');
+          sAlert.success('Password changed.');
+        });
+
+      } else {
+        Session.set('changingPassword', false);
+        return sAlert.error('The value you entered as your current password is incorrect. Please check and try again.');
       }
     });
   }

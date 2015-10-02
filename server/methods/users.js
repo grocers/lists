@@ -50,6 +50,18 @@ Meteor.methods({
 
     return !! Meteor.users.findOne({'emails': {$elemMatch: {address: email}}});
   },
+  checkPassword: function(digest) {
+    check(digest, String);
+
+    if (Meteor.userId()) {
+      var user = Meteor.user();
+      var password = {digest: digest, algorithm: 'sha-256'};
+      var result = Accounts._checkPassword(user, password);
+      return !result.error;
+    } else {
+      return false;
+    }
+  },
   setNewPassword: function (user, forceLogout) {
     forceLogout = forceLogout || false;
     try {
