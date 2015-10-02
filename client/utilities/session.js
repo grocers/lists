@@ -1,17 +1,22 @@
 Accounts.onLogin(function () {
-  console.log('runningOnlogin', redirectTo);
+  var user = Meteor.user();
   var redirectTo = Session.get('redirectAfterLogin');
+
   if (redirectTo) {
     if (redirectTo !== 'login') {
+      Session.set('redirectAfterLogin', null);
       return FlowRouter.go(redirectTo);
     }
   } else {
-    var user = Meteor.user();
-    if (user.profile.isAdmin) {
-      redirectTo = 'adminOverview';
+    var currentPath = window.location.pathname;
+    if (currentPath === '/login') {
+      if (user.profile.isAdmin) {
+        FlowRouter.go('adminOverview');
+      } else {
+        FlowRouter.go('lists');
+      }
     } else {
-      redirectTo = 'lists';
+      FlowRouter.go(currentPath);
     }
-    return FlowRouter.go(redirectTo);
   }
 });
