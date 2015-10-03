@@ -6,7 +6,6 @@
 
 meteor-platform
 insecure
-kadira:flow-router
 kadira:blaze-layout
 fourseven:scss
 twbs:bootstrap
@@ -28,3 +27,4 @@ zimme:active-route
 aldeed:tabular
 momentjs:moment
 tsega:bootstrap3-datetimepicker
+kadira:flow-router
