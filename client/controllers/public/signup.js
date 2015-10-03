@@ -46,6 +46,8 @@ Template.signup.events({
             sAlert.error(error.reason || 'Oops. We had trouble processing your last request.');
           }
         } else {
+          Session.set('redirectAfterLogin', 'lists');
+
           // Log the user in.
           Meteor.loginWithPassword(user.email, user.password, function(error){
             if(error){
