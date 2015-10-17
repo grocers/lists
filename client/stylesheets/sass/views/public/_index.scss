@@ -11,6 +11,9 @@
   }
   .brand {
     margin-top: 30px;
+    img {
+      width: 300px;
+    }
   }
   .service-explanation {
     .headline {
@@ -38,6 +41,54 @@
       background-color: transparent;
       border-color: #fff;
       color: #fff;
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  .index-wrapper {
+    .brand {
+      img {
+        width: 268px;
+      }
+    }
+  }
+}
+
+@media (max-width: 375px) {
+  .index-wrapper {
+    .brand {
+      img {
+        width: 248px;
+      }
+    }
+    .service-explanation .headline {
+      font-size: 25px;
+    }
+  }
+}
+
+@media (max-width: 348px) {
+  .index-wrapper {
+    padding: 25px;
+    .brand {
+      img {
+        width: 228px;
+      }
+    }
+    .service-explanation .headline {
+      font-size: 20px;
+    }
+    .links .btn {
+      display: block;
+    }
+  }
+}
+
+@media (max-width: 320px) {
+  .index-wrapper {
+    .service-explanation .headline {
+      font-size: 18px;
     }
   }
 }
