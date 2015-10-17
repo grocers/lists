@@ -1,37 +1,65 @@
 .app-container {
   .body {
-    .sidebar {
-      .create-list {
-        @include color-button(#9dc626);
-        font-size: 17px;
+    .shopper-lists {
+      .sidebar {
+        .create-list {
+          @include color-button(#9dc626);
+          font-size: 17px;
+        }
+      }
+      .lists {
+        .list {
+          .box {
+            position: relative;
+            border: 1px solid #eee;
+            border-bottom: 1px solid #4fa2e2;
+            border: 1px dashed #61c1b8;
+            border-top: 6px solid #61c1b8;
+            @include border-radius(0px);
+            min-height: 15em;
+            max-height: 15em;    
+            padding: 20px;
+            margin-bottom: 25px;
+            // box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+            .name {
+              margin: 0;
+              font-size: 21px;
+            }
+            .open-link {
+              position: absolute;
+              bottom: 30px;
+              @include color-button(#61c1b8);
+              color: #fff;
+              padding: 8px 14px;
+              font-size: 17px;
+            }
+          }
+        }
       }
     }
-    .lists {
-      .list {
-        .box {
-          position: relative;
-          border: 1px solid #eee;
-          border-bottom: 1px solid #4fa2e2;
-          border: 1px dashed #61c1b8;
-          border-top: 6px solid #61c1b8;
-          @include border-radius(0px);
-          min-height: 15em;
-          max-height: 15em;    
-          padding: 20px;
+  }
+}
+
+@media (max-width: 1199px) {
+  .app-container {
+    .body {
+      .shopper-lists {
+        .sidebar {
+          margin-top: 25px;
           margin-bottom: 25px;
-          // box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
-          .name {
-            margin: 0;
-            font-size: 21px;
-          }
-          .open-link {
-            position: absolute;
-            bottom: 30px;
-            @include color-button(#61c1b8);
-            color: #fff;
-            padding: 8px 14px;
-            font-size: 17px;
-          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  .app-container {
+    .body {
+      .shopper-lists {
+        .sidebar {
+          margin-top: 15px;
+          margin-bottom: 25px;
         }
       }
     }

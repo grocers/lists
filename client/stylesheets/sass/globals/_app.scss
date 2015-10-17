@@ -6,6 +6,7 @@
         position: relative;
         bottom: 1px;
         display: inline;
+        width: 270px;
       } 
     }
     .help {
@@ -82,6 +83,21 @@
     }
     .viewport.floated {
       float: right;
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  .app-container {
+    .navigation {
+      .service-name {
+        display: none;
+      }
+      .navbar-brand {
+        img {
+          width: 218px;
+        } 
+      }
     }
   }
 }

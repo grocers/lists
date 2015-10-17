@@ -1,5 +1,5 @@
 <template name="lists">
-  <div class="row">
+  <div class="row shopper-lists">
     <div class="col-lg-2 sidebar">
       <a href="{{pathFor 'createList'}}" class="btn btn-danger create-list btn-lg"><i class="fa fa-plus"></i> New List</a>
     </div>
@@ -8,7 +8,7 @@
         {{#if Template.subscriptionsReady}}
           {{#if hasLists}}
             {{#each lists}}
-              <div class="col-lg-4 list">
+            <div class="col-xs-12 col-sm-4 list">
                 <div class="box">
                   <h2 class="name">{{name}}</h2>
                   <a href="{{pathFor 'viewList' id=_id}}" class="btn btn-default btn-lg open-link"><i class="fa fa-folder-open-o"></i> Open List</a>

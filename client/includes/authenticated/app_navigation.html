@@ -9,9 +9,9 @@
           <span class="icon-bar"></span>
         </button>
         {{#if isCustomer}}
-        <a class="navbar-brand" href="{{pathFor 'lists'}}"><img src="/images/grocers-logo-transparent.png" width="270" /> &nbsp;Shopping Lists</a>
+        <a class="navbar-brand" href="{{pathFor 'lists'}}"><img src="/images/grocers-logo-transparent.png" /> &nbsp;<span class="service-name">Shopping Lists</span></a>
         {{else}}
-          <a class="navbar-brand" href="{{pathFor 'adminOverview'}}"><img src="/images/grocers-logo-transparent.png" width="270" /> Shopping Lists</a>
+          <a class="navbar-brand" href="{{pathFor 'adminOverview'}}"><img src="/images/grocers-logo-transparent.png" /> <span class="service-name">Shopping Lists</span></a>
         {{/if}}  
       </div>
       <div id="navbar" class="collapse navbar-collapse navbar-right links">
