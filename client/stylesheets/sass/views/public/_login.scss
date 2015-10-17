@@ -63,3 +63,39 @@
     }
   }
 }
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .login-form-wrapper {
+    padding: 15px;
+    width: 40%;
+    .login-form form {
+      padding-left: 10px;
+      padding-right: 10px;
+      padding-top: 10px;
+    }
+  }
+}
+
+@media (min-width: 401px) and (max-width: 767px) {
+  .login-form-wrapper {
+    padding: 15px;
+    width: 70%;
+    .login-form form {
+      padding-left: 10px;
+      padding-right: 10px;
+      padding-top: 10px;
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  .login-form-wrapper {
+    padding: 15px;
+    width: 100%;
+    .login-form form {
+      padding-left: 10px;
+      padding-right: 10px;
+      padding-top: 10px;
+    }
+  }
+}

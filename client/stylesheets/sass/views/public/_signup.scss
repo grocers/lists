@@ -63,3 +63,39 @@
     }
   }
 }
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .signup-form-wrapper {
+    padding: 15px;
+    width: 40%;
+    .signup-form form {
+      padding-left: 10px;
+      padding-right: 10px;
+      padding-top: 10px;
+    }
+  }
+}
+
+@media (min-width: 401px) and (max-width: 767px) {
+  .signup-form-wrapper {
+    padding: 15px;
+    width: 70%;
+    .signup-form form {
+      padding-left: 10px;
+      padding-right: 10px;
+      padding-top: 10px;
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  .signup-form-wrapper {
+    padding: 15px;
+    width: 100%;
+    .signup-form form {
+      padding-left: 10px;
+      padding-right: 10px;
+      padding-top: 10px;
+    }
+  }
+}
