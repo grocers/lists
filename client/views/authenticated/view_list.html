@@ -18,10 +18,10 @@
         <div class="col-lg-12 form-box">
           <div class="header">
             <div class="row">
-              <div class="col-lg-9">
+              <div class="col-xs-9">
                 <input class="" size="40" placeholder="Your List Name..." value="{{list.name}}" type="text" name="list-name" id="list-name" />
               </div>
-              <div class="col-lg-3 saving-spinner-box">
+              <div class="col-xs-3 saving-spinner-box">
                   {{#if showHeaderSpinner}}
                     <i class="fa fa-refresh fa-spin fa-2x text-muted saving-spinner"></i>
                   {{else}}
@@ -95,79 +95,81 @@
             {{#if showAddItemForm}}
             {{> addItemForm}}
             {{/if}}
-          <div class="items">
-            <table class="table table-hover">
-              <thead>
-                <tr>
-                  <th>Edit</th>
-                  <th>Item Description</th>
-                  <th>Item Brand</th>
-                  <th>Replace?</th>
-                  <th>Quantity</th>
-                  <th>Packing Unit</th>
-                  <th>&nbsp;</th>
-                </tr>
-              </thead>
-              <tbody>
-                {{#each listItems}}
-                  <tr>
-                    <td>
-                      {{#if isEditingItem _id}}
-                      {{#if isSavingChangesToItem _id}}
+            <div class="items">
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Edit</th>
+                      <th>Item Description</th>
+                      <th>Item Brand</th>
+                      <th>Replace?</th>
+                      <th>Quantity</th>
+                      <th>Packing Unit</th>
+                      <th>&nbsp;</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {{#each listItems}}
+                    <tr>
+                      <td>
+                        {{#if isEditingItem _id}}
+                        {{#if isSavingChangesToItem _id}}
                         <i class="fa fa-refresh fa-spin saving-changes-to-item-spinner"></i>
-                      {{else}}
+                        {{else}}
                         <a href="#" class="save-changes-link" title="Save Changes"><i class="fa fa-save"></i></a>&nbsp;
                         <a href="#" class="cancel-edit-link" title="Cancel Edit"><i class="fa fa-times-circle"></i></a>
-                      {{/if}}
-                      {{else}}
+                        {{/if}}
+                        {{else}}
                         <a href="#" class="edit-item-link" title="Edit Item"><i class="fa fa-pencil"></i></a>
-                      {{/if}}
-                    </td>
-                    <td>
-                      {{#if isEditingItem _id}}
-                      <input type="text" value="{{description}}" name="new-item-description" id="new-item-description" disabled="{{isSavingChangesToItem _id}}" />
-                      {{else}}
+                        {{/if}}
+                      </td>
+                      <td>
+                        {{#if isEditingItem _id}}
+                        <input type="text" value="{{description}}" name="new-item-description" id="new-item-description" disabled="{{isSavingChangesToItem _id}}" />
+                        {{else}}
                         {{description}} 
-                      {{/if}}
-                    </td>
-                    <td>
-                      {{#if isEditingItem _id}}
-                      <input type="text" value="{{brand}}" name="new-item-brand" id="new-item-brand" disabled="{{isSavingChangesToItem _id}}" />
-                      {{else}}
-                      {{brand}}
-                      {{/if}}
-                    </td>
-                    <td>
-                      {{#if isEditingItem _id}}
-                      <input type="checkbox" name="new-item-allow-replacement" id="new-item-allow-replacement" disabled="{{isSavingChangesToItem _id}}" checked="{{allowReplacement}}" />
-                      {{else}}
-                      {{replaceable this}}
-                      {{/if}}
-                    </td>
-                    <td>
-                      {{#if isEditingItem _id}}
-                      <input type="number" value="{{quantity}}" min="1" max="100" name="new-item-quantity" id="new-item-quantity" disabled="{{isSavingChangesToItem _id}}" />
-                      {{else}}
+                        {{/if}}
+                      </td>
+                      <td>
+                        {{#if isEditingItem _id}}
+                        <input type="text" value="{{brand}}" name="new-item-brand" id="new-item-brand" disabled="{{isSavingChangesToItem _id}}" />
+                        {{else}}
+                        {{brand}}
+                        {{/if}}
+                      </td>
+                      <td>
+                        {{#if isEditingItem _id}}
+                        <input type="checkbox" name="new-item-allow-replacement" id="new-item-allow-replacement" disabled="{{isSavingChangesToItem _id}}" checked="{{allowReplacement}}" />
+                        {{else}}
+                        {{replaceable this}}
+                        {{/if}}
+                      </td>
+                      <td>
+                        {{#if isEditingItem _id}}
+                        <input type="number" value="{{quantity}}" min="1" max="100" name="new-item-quantity" id="new-item-quantity" disabled="{{isSavingChangesToItem _id}}" />
+                        {{else}}
                         {{quantity}}
-                      {{/if}}
-                    </td>
-                    <td>
-                      {{#if isEditingItem _id}}
-                      {{> itemPackingUnitOptions}}
-                      {{else}}
-                      {{packingUnit}}
-                      {{/if}}
-                    </td>
-                    <td>
-                      {{#if isEditingItem _id}}
-                      {{else}}
-                      <a href="#" class="remove-item-link" title="Remove Item"><i class="fa fa-trash"></i></a>
-                      {{/if}}
-                    </td>
-                  </tr>
-                {{/each}}
-              </tbody>
-            </table>
+                        {{/if}}
+                      </td>
+                      <td>
+                        {{#if isEditingItem _id}}
+                        {{> itemPackingUnitOptions}}
+                        {{else}}
+                        {{packingUnit}}
+                        {{/if}}
+                      </td>
+                      <td>
+                        {{#if isEditingItem _id}}
+                        {{else}}
+                        <a href="#" class="remove-item-link" title="Remove Item"><i class="fa fa-trash"></i></a>
+                        {{/if}}
+                      </td>
+                    </tr>
+                    {{/each}}
+                  </tbody>
+                </table>
+              </div>
           </div>
           {{else}}
             {{#if showAddItemForm}}

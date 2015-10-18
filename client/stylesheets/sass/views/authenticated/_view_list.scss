@@ -48,3 +48,28 @@
     height: 34px;
   }
 }
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .app-container {
+    .body {
+      .sidebar {
+        margin-bottom: 30px;
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .app-container {
+    .body {
+      padding-left: 25px;
+      padding-right: 25px;
+      .sidebar {
+        margin-bottom: 30px;
+        a:link, a:visited {
+          display: block;
+        }
+      }
+    }
+  }
+}

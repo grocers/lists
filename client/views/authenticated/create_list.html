@@ -91,18 +91,19 @@
             {{> addItemForm}}
             {{/if}}
           <div class="items">
-            <table class="table table-hover">
-              <thead>
-                <tr>
-                  <th>Item Description</th>
-                  <th>Brand</th>
-                  <th>Replace?</th>
-                  <th>Quantity</th>
-                  <th>Packing Unit</th>
-                </tr>
-              </thead>
-              <tbody>
-                {{#each listItems}}
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>Item Description</th>
+                    <th>Brand</th>
+                    <th>Replace?</th>
+                    <th>Quantity</th>
+                    <th>Packing Unit</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#each listItems}}
                   <tr>
                     <td>{{description}}</td>
                     <td>{{brand}}</td>
@@ -110,9 +111,10 @@
                     <td>{{quantity}}</td>
                     <td>{{packingUnit}}</td>
                   </tr>
-                {{/each}}
-              </tbody>
-            </table>
+                  {{/each}}
+                </tbody>
+              </table>
+            </div>
           </div>
           {{else}}
             {{#if showAddItemForm}}
