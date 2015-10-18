@@ -87,12 +87,23 @@
   }
 }
 
-@media (max-width: 400px) {
+
+@media (max-width: 767px) {
   .app-container {
     .navigation {
       .service-name {
         display: none;
       }
+      .navbar-brand {
+        padding: 9px 15px;
+      }
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  .app-container {
+    .navigation {
       .navbar-brand {
         img {
           width: 218px;
