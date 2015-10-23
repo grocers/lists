@@ -8,19 +8,38 @@
         <div class="col-lg-12 form-box">
           <div class="header">
             <div class="row">
-              <div class="col-lg-9">
+              <div class="col-lg-8">
                 <input class="" size="40" placeholder="Your List Name..." type="text" name="list-name" id="list-name" />
               </div>
               <!-- <div class="col-lg-3 delivery-schedule-trigger-box"> -->
               <!--   <button class="btn btn-success set-delivery-date"><i class="fa fa-calendar-check-o"></i> Set Delivery Date</button> --> 
               <!-- </div> -->
-              <div class="col-lg-3 saving-spinner-box">
+              <div class="col-lg-4 saving-spinner-box">
                 {{#if previouslySaved}}
-                {{#if updatingListName}}
-                <i class="fa fa-refresh fa-spin fa-2x text-muted saving-spinner"></i>
-                {{else}}
-                <i class="fa fa-check fa-2x text-muted done-save"></i>
-                {{/if}}
+                  {{#if updatingListName}}
+                    <i class="fa fa-refresh fa-spin fa-2x text-muted saving-spinner"></i>
+                  {{else}}
+                    {{#if canOrder}}
+                    <button class="btn btn-success btn-lg" id="order-list-items" disabled="{{orderingListItems}}">
+                      {{#if orderingListItems}}
+                      One moment please...
+                      {{else}}
+                      <i class="fa fa-shopping-cart"></i> Place Order
+                      {{/if}}
+                    </button>
+                    {{else}}
+                      {{#if hasOpenOrder}}
+                      <p class="lead" style="color: #61c1b8; font-size: 19px;">Order placed {{orderDateFromNow}}</p> 
+                      {{else}}
+                      <i class="fa fa-check fa-2x text-muted done-save"></i>
+                      {{/if}}
+                    {{/if}}
+                  {{/if}}
+                <!-- {{#if updatingListName}} -->
+                <!-- <i class="fa fa-refresh fa-spin fa-2x text-muted saving-spinner"></i> -->
+                <!-- {{else}} -->
+                <!-- <i class="fa fa-check fa-2x text-muted done-save"></i> -->
+                <!-- {{/if}} -->
                 {{/if}}
               </div>
             </div>

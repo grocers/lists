@@ -11,6 +11,7 @@ Template.viewList.onCreated(function() {
       onReady: function () {
         self.subscribe('packingUnits');
         self.subscribe('listItems', listId);
+        self.subscribe('openOrderForList', listId);
       }
     });
   });
@@ -21,14 +22,36 @@ var getCurrentList = function () {
   var listId = FlowRouter.getParam("id");
   return Lists.findOne({_id: listId});
 };
+var hasItems = function () {
+  var listId = FlowRouter.getParam("id");
+  return !! Items.find({list: listId}).count();
+};
 
 Template.viewList.helpers({
   showHeaderSpinner: function () {
     return Session.get('updatingListName') || Session.get('removingItemFromList') || Session.get('savingChangesToAnItem');
   },
-  hasItems: function () {
+  canOrder: function () {
+    var list = getCurrentList();
+    var proceed = list.deliversOn && list.preferredStore && hasItems();
+    if (!proceed) {
+      return false;
+    } else {
+      var openOrder = Orders.findOne({list: list._id, fulfilled: false});
+      return ! openOrder;
+    }
+  },
+  hasOpenOrder: function () {
     var listId = FlowRouter.getParam("id");
-    return !! Items.find({list: listId}).count();
+    return !! Orders.findOne({list: listId, fulfilled: false});
+  },
+  orderDateFromNow: function () {
+    var listId = FlowRouter.getParam("id");
+    var order = Orders.findOne({list: listId, fulfilled: false});
+    return order ? moment(order.createdAt).fromNow() : '';
+  },
+  hasItems: function () {
+    return hasItems();
   },
   list: function () {
     var listId = FlowRouter.getParam("id");
@@ -37,6 +60,9 @@ Template.viewList.helpers({
   listItems: function () {
     var listId = FlowRouter.getParam("id");
     return Items.find({list: listId});
+  },
+  orderingListItems: function () {
+    return Session.get('orderingListItems');
   },
   showAddItemForm: function () {
     return Session.get('showAddItemForm');
@@ -295,6 +321,19 @@ Template.viewList.events({
         sAlert.error(error.reason || 'Oops. We had trouble processing your last request.');
       } else {
         Session.set('showStoreOptions', false);
+      }
+    });
+  },
+  "click #order-list-items": function () {
+    var listId = FlowRouter.getParam('id');
+    Session.set('orderingListItems', true);
+    Meteor.call('orderListItems', listId, function (error) {
+      Session.set('orderingListItems', false);
+      if (error) {
+        console.log('Error:', error);
+        sAlert.error(error.reason || 'Oops. We had trouble processing your last request.');
+      } else {
+        sAlert.success('Done');
       }
     });
   }

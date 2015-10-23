@@ -4,6 +4,7 @@ Template.createList.onCreated(function() {
     var listId = Session.get('listId');
     self.subscribe('listItems', listId);
     self.subscribe('aList', listId);
+    self.subscribe('openOrderForList', listId);
   });
 });
 
@@ -17,6 +18,11 @@ var getCurrentList = function () {
   return Lists.findOne({_id: listId});
 };
 
+var hasItems = function () {
+  var listId = Session.get('listId');
+  return !! Items.find({list: listId}).count();
+};
+
 Template.createList.helpers({
   updatingListName: function () {
     return Session.get('updatingListName');
@@ -24,13 +30,31 @@ Template.createList.helpers({
   previouslySaved: function () {
     return !! Session.get('listId');
   },
-  hasItems: function () {
-    var listId = Session.get('listId');
-    if (!listId) {
+  canOrder: function () {
+    var list = getCurrentList();
+    if (!list) { return false; }
+    var proceed = list.deliversOn && list.preferredStore && hasItems();
+    if (!proceed) {
       return false;
     } else {
-      return !! Items.find({list: listId}).count();
+      var openOrder = Orders.findOne({list: list._id, fulfilled: false});
+      return ! openOrder;
     }
+  },
+  hasOpenOrder: function () {
+    var listId = Session.get('listId');
+    return !! Orders.findOne({list: listId, fulfilled: false});
+  },
+  orderDateFromNow: function () {
+    var listId = Session.get('listId');
+    var order = Orders.findOne({list: listId, fulfilled: false});
+    return order ? moment(order.createdAt).fromNow() : '';
+  },
+  orderingListItems: function () {
+    return Session.get('orderingListItems');
+  },
+  hasItems: function () {
+    return hasItems();
   },
   listItems: function () {
     var listId = Session.get('listId');
@@ -232,4 +256,17 @@ Template.createList.events({
       }
     });
   },
+  "click #order-list-items": function () {
+    var listId = Session.get('listId');
+    Session.set('orderingListItems', true);
+    Meteor.call('orderListItems', listId, function (error) {
+      Session.set('orderingListItems', false);
+      if (error) {
+        console.log('Error:', error);
+        sAlert.error(error.reason || 'Oops. We had trouble processing your last request.');
+      } else {
+        sAlert.success('Done');
+      }
+    });
+  }
 });

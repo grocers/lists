@@ -47,6 +47,9 @@
     border: 1px solid #ccc;
     height: 34px;
   }
+  button#order-list-items {
+    @include color-button(#9dc626);
+  }
 }
 
 @media (min-width: 768px) and (max-width: 1199px) {

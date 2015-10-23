@@ -127,5 +127,70 @@ Meteor.methods({
     }
 
     return Lists.remove({_id: listId});
+  },
+  orderListItems: function (listId) {
+    if (!Meteor.userId()) {
+      throw new Meteor.Error('not-authorized');
+    }
+
+    try {
+      check(listId, String);
+    } catch (e) {
+      throw new Meteor.Error(e.message);
+    }
+
+    var list = Lists.findOne(listId);
+    if (!list) {
+      throw new Meteor.Error('not-found');
+    }
+
+    if (list.owner !== Meteor.userId()) {
+      throw new Meteor.Error('not-authorized');
+    }
+
+    Meteor.call('createOrderForList', listId, function (error) {
+      if (error) {
+        console.log('SError:', error);
+        throw new Meteor.Error('not-authorized');
+      } else {
+        var user = Meteor.user();
+        var listItems = Items.find({list: listId});
+
+        var config = {
+          recipient: {
+            name: user.profile.fullName,
+            email: user.emails[0].address,
+            listName: list.name,
+            items: listItems.map(function (item) {
+              return {
+                description: item.description,
+                brand: item.brand,
+                howMany: item.quantity + '  ' + item.packingUnit
+              };
+            })
+          }, 
+          merge: true,
+          merge_language: 'handlebars',
+          merge_vars: ['name', 'listName', 'items'],
+          subject: 'Order Confirmation',
+          template: 'order-confirmation'
+        };
+
+        MandrillMailer.send(config, Meteor.bindEnvironment(function (error, response) {
+          if (error) {
+            console.log('ERROR: ' + err);
+          } else {
+            if (response.status === 'sent') {
+              console.log('Success: ', response);
+              // Meteor.users.update({_id: user._id}, {$set: {"resetToken.delivered": true}});
+              return true;
+            }
+          }
+        }, function () {
+          console.log('Failed to bind environment');
+        }));
+      }
+    });
+    // return true;
   }
 });
